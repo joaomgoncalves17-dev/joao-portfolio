@@ -1,0 +1,21 @@
+---
+/** A link whose href may still be a placeholder. Placeholder hrefs render as non-links. */
+import { isTodo, type Todo } from "../data/content";
+
+interface Props { href: string | Todo | undefined; class?: string; download?: boolean; external?: boolean }
+const { href, class: cls, download, external } = Astro.props;
+const missing = href === undefined || isTodo(href);
+---
+{missing ? (
+  <span class={cls} aria-disabled="true" title={isTodo(href) ? `Missing: ${href.todo}` : undefined}>
+    <slot />
+  </span>
+) : (
+  <a
+    href={href as string}
+    class={cls}
+    download={download ? "" : undefined}
+    target={external ? "_blank" : undefined}
+    rel={external ? "noopener" : undefined}
+  ><slot /></a>
+)}

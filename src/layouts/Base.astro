@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+import { useT, homeHref, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+const site = Astro.site ?? new URL("https://example.com");
+---
+<!doctype html>
+<html lang={lang === "pt" ? "pt-PT" : "en"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t("meta.title")}</title>
+    <meta name="description" content={t("meta.description")} />
+    <meta name="theme-color" content="#f8f9fc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#161a26" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(homeHref(lang), site)} />
+    <link rel="alternate" hreflang="en" href={new URL("/", site)} />
+    <link rel="alternate" hreflang="pt" href={new URL("/pt/", site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL("/", site)} />
+    <meta property="og:title" content={t("meta.title")} />
+    <meta property="og:description" content={t("meta.description")} />
+    <meta property="og:locale" content={lang === "pt" ? "pt_PT" : "en_GB"} />
+  </head>
+  <body class="min-h-dvh">
+    <a href="#main" class="skip">{t("nav.skip")}</a>
+    <slot />
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 30;
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--radius-ui);
+    background: var(--copper);
+    color: var(--on-copper);
+    font-weight: 600;
+  }
+  .skip:focus { top: 0.75rem; }
+</style>

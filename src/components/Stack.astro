@@ -1,0 +1,258 @@
+---
+/**
+ * The first viewport: the OSI stack. Seven layer bands, L7 at the top to L1 at the
+ * bottom; each project sits on the layer(s) it actually touches.
+ */
+import { Icon } from "astro-icon/components";
+import Text from "./Text.astro";
+import MaybeLink from "./MaybeLink.astro";
+import { osi, projects, contact, isTodo } from "../data/content";
+import { useT, pick, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+
+// Each project's marker sits on its highest layer and brackets down to its lowest.
+const markers = projects.map((p) => ({
+  p,
+  top: Math.max(...p.layers),
+  span: Math.max(...p.layers) - Math.min(...p.layers) + 1,
+  range:
+    p.layers.length > 1
+      ? `L${Math.max(...p.layers)}-L${Math.min(...p.layers)}`
+      : `L${p.layers[0]}`,
+}));
+const markerOn = (n: number) => markers.filter((m) => m.top === n);
+---
+<section class="stack" aria-labelledby="hero-title">
+  <span class="wire" aria-hidden="true"><i></i></span>
+
+  {osi.map((layer, i) => (
+    <div class="band" data-l={layer.n} style={`--i:${i}`}>
+      <p class="label">
+        <span class="num wide tabular">{layer.n}</span>
+        <span class="lname">{pick(layer.name, lang)}</span>
+      </p>
+
+      <div class="main">
+        {layer.n === 7 && (
+          <h1 id="hero-title" class="title semi-wide">{t("hero.title")}</h1>
+        )}
+        {layer.n === 6 && <p class="sub">{t("hero.sub")}</p>}
+        {layer.n === 5 && (
+          <div class="ctas">
+            <a href="#work" class="btn btn-primary">{t("cta.work")}</a>
+            <MaybeLink href={contact.cv} class="btn btn-ghost" download>
+              <Icon name="ph:download-simple" size={18} aria-hidden="true" />
+              {t("cta.cv")}
+              {isTodo(contact.cv) && <span class="ph">[{contact.cv.todo}]</span>}
+            </MaybeLink>
+          </div>
+        )}
+        {layer.n === 1 && (
+          <ul class="wires" aria-label={t("nav.contact")}>
+            <li>
+              <Icon name="ph:envelope-simple" size={18} aria-hidden="true" />
+              {isTodo(contact.email)
+                ? <Text value={contact.email} lang={lang} />
+                : <a href={`mailto:${contact.email}`}>{contact.email}</a>}
+            </li>
+            <li>
+              <Icon name="ph:linkedin-logo" size={18} aria-hidden="true" />
+              <MaybeLink href={contact.linkedin} external>LinkedIn</MaybeLink>
+            </li>
+            <li>
+              <Icon name="ph:github-logo" size={18} aria-hidden="true" />
+              <MaybeLink href={contact.github} external>GitHub</MaybeLink>
+            </li>
+          </ul>
+        )}
+      </div>
+
+      <div class="markers">
+        {markerOn(layer.n).map((m) => (
+          <a
+            href={`#work-${m.p.track}`}
+            class="marker"
+            data-layers={m.p.layers.join(" ")}
+            style={`--span:${m.span}`}
+          >
+            <span class="range tabular">{m.range} · {pick(m.p.trackName, lang)}</span>
+            <span class="pname"><Text value={m.p.name} lang={lang} /></span>
+            <span class="status">{t(`work.status.${m.p.status}`)}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+  .stack {
+    --pad: clamp(1rem, 3vw, 2.5rem);
+    --gut: 10.5rem;
+    --mk: minmax(15rem, 21rem);
+    --edge: max(var(--pad), calc((100% - 90rem) / 2 + var(--pad)));
+    position: relative;
+    display: grid;
+    grid-template-rows: 1.9fr repeat(6, 1fr);
+    height: calc(100dvh - 4rem);
+    min-height: 40rem;
+    max-height: 64rem;
+  }
+
+  .band {
+    --bg: var(--l7);
+    --fg: var(--on-light-band);
+    display: grid;
+    grid-template-columns: var(--gut) minmax(0, 1fr) var(--mk);
+    column-gap: clamp(1rem, 3vw, 3rem);
+    align-items: center;
+    padding-inline: var(--edge);
+    background: var(--bg);
+    color: var(--fg);
+    transition: opacity 260ms var(--ease-out-expo), filter 260ms var(--ease-out-expo);
+  }
+  .band[data-l="6"] { --bg: var(--l6); }
+  .band[data-l="5"] { --bg: var(--l5); }
+  .band[data-l="4"] { --bg: var(--l4); }
+  .band[data-l="3"] { --bg: var(--l3); }
+  .band[data-l="2"] { --bg: var(--l2); --fg: var(--on-dark-band); }
+  .band[data-l="1"] { --bg: var(--l1); --fg: var(--on-dark-band); }
+
+  .label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    color: color-mix(in oklch, var(--fg) 82%, var(--bg));
+  }
+  .num { font-size: 1.35rem; font-weight: 700; line-height: 1; }
+  .lname { font-size: 0.85rem; font-weight: 500; }
+
+  .main { min-width: 0; }
+  .title {
+    max-width: 30ch;
+    font-size: clamp(2rem, 3.4vw, 3.25rem);
+    font-weight: 760;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+  }
+  .sub {
+    max-width: 60ch;
+    font-size: clamp(1rem, 1.25vw, 1.15rem);
+    line-height: 1.45;
+  }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .ctas .ph { font-size: 0.7rem; }
+
+  .wires {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    font-size: 0.95rem;
+  }
+  .wires li { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .wires a { color: inherit; }
+
+  /* Project markers */
+  .markers { position: relative; z-index: 2; align-self: stretch; }
+  .marker {
+    position: relative;
+    display: grid;
+    gap: 0.15rem;
+    height: 100%;
+    padding: 0.85rem 0 0.85rem 1.1rem;
+    align-content: start;
+    color: inherit;
+    text-decoration: none;
+  }
+  .marker::before {
+    /* The bracket: spans every band the project touches. */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    bottom: calc(-100% * (var(--span) - 1) + 0.85rem);
+    width: 0.4rem;
+    border: 2px solid var(--copper);
+    border-right: 0;
+    border-radius: 2px 0 0 2px;
+  }
+  .range { font-size: 0.78rem; font-weight: 600; color: color-mix(in oklch, var(--fg) 80%, var(--bg)); }
+  .pname { font-size: 1.05rem; font-weight: 700; }
+  .status { font-size: 0.82rem; color: color-mix(in oklch, var(--fg) 80%, var(--bg)); }
+  .marker:hover .pname, .marker:focus-visible .pname { text-decoration: underline; }
+
+  /* Signature: a project lights the layers it spans and dims the rest. */
+  .stack:has(.marker:is(:hover, :focus-visible)) .band { opacity: 0.45; filter: saturate(0.4); }
+  .stack:has(.marker[data-layers~="7"]:is(:hover, :focus-visible)) .band[data-l="7"],
+  .stack:has(.marker[data-layers~="6"]:is(:hover, :focus-visible)) .band[data-l="6"],
+  .stack:has(.marker[data-layers~="5"]:is(:hover, :focus-visible)) .band[data-l="5"],
+  .stack:has(.marker[data-layers~="4"]:is(:hover, :focus-visible)) .band[data-l="4"],
+  .stack:has(.marker[data-layers~="3"]:is(:hover, :focus-visible)) .band[data-l="3"],
+  .stack:has(.marker[data-layers~="2"]:is(:hover, :focus-visible)) .band[data-l="2"],
+  .stack:has(.marker[data-layers~="1"]:is(:hover, :focus-visible)) .band[data-l="1"] {
+    opacity: 1;
+    filter: none;
+  }
+
+  /* The wire: one copper line down the gutter, L7 to L1, ending at the contact links. */
+  .wire {
+    position: absolute;
+    z-index: 1;
+    left: calc(var(--edge) + var(--gut) - 0.25rem);
+    top: 0;
+    bottom: 0;
+    width: 0.5rem;
+    container-type: size;
+    pointer-events: none;
+  }
+  .wire::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - 1px);
+    top: 12cqh;
+    height: 81.7cqh;
+    width: 2px;
+    background: var(--copper);
+    transform-origin: top;
+  }
+  .wire i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--copper);
+    border-radius: 1px;
+    translate: 0 calc(93.7cqh - 0.25rem);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .wire::before { animation: wire-draw 1.5s var(--ease-out-expo) 250ms both; }
+    .wire i { animation: packet 1.5s var(--ease-out-expo) 250ms both; }
+    @keyframes wire-draw { from { transform: scaleY(0); } }
+    @keyframes packet { from { translate: 0 calc(12cqh - 0.25rem); } }
+  }
+
+  /* Phones: bands grow with their content; gutter shows the layer number only. */
+  @media (max-width: 47.99rem) {
+    .stack { height: auto; max-height: none; min-height: 0; grid-template-rows: none; }
+    .band {
+      grid-template-columns: 2rem minmax(0, 1fr);
+      align-items: start;
+      row-gap: 0.75rem;
+      min-height: 3.25rem;
+      padding-block: 0.9rem;
+    }
+    .band[data-l="7"] { padding-block: 1.75rem; }
+    .lname { display: none; }
+    .num { font-size: 1.1rem; padding-top: 0.2rem; }
+    .markers { grid-column: 2; }
+    .markers:empty { display: none; }
+    .marker { padding-block: 0.1rem; }
+    .marker::before { top: 0.1rem; bottom: 0.1rem; }
+    .wire { display: none; }
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Stack from "../components/Stack.astro";
+import Work from "../components/Work.astro";
+import Skills from "../components/Skills.astro";
+import Education from "../components/Education.astro";
+import Contact from "../components/Contact.astro";
+
+const lang = "en";
+---
+<Base lang={lang}>
+  <Nav lang={lang} />
+  <main id="main">
+    <Stack lang={lang} />
+    <Work lang={lang} />
+    <Skills lang={lang} />
+    <Education lang={lang} />
+  </main>
+  <Contact lang={lang} />
+</Base>

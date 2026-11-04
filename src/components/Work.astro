@@ -1,0 +1,126 @@
+---
+import { Icon } from "astro-icon/components";
+import Text from "./Text.astro";
+import MaybeLink from "./MaybeLink.astro";
+import ImageSlot from "./ImageSlot.astro";
+import { projects, osi } from "../data/content";
+import { useT, pick, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section id="work" class="work" aria-labelledby="work-title">
+  <h2 id="work-title" class="h2 wide">{t("work.title")}</h2>
+
+  <div class="list">
+    {projects.map((p, i) => (
+      <article id={`work-${p.track}`} class:list={["project", { flip: i % 2 === 1 }]} aria-labelledby={`p-${p.track}`}>
+        <ol class="mini" aria-label={`OSI layers: ${p.layers.join(", ")}`}>
+          {osi.map((l) => (
+            <li class:list={{ on: p.layers.includes(l.n) }} data-l={l.n} title={pick(l.name, lang)}>
+              <span class="tabular">{l.n}</span>
+            </li>
+          ))}
+        </ol>
+
+        <div class="media">
+          <ImageSlot image={p.image} lang={lang} ratio="16/10" />
+        </div>
+
+        <div class="body">
+          <h3 id={`p-${p.track}`} class="track semi-wide">{pick(p.trackName, lang)}</h3>
+          <p class="pname"><Text value={p.name} lang={lang} /></p>
+          <p class="summary"><Text value={p.summary} lang={lang} /></p>
+          <p class="stackline">
+            {p.stack.map((s, j) => (
+              <>
+                {j > 0 && ", "}
+                <Text value={s} lang={lang} />
+              </>
+            ))}
+          </p>
+          <p class="meta">
+            <span class="status">{t(`work.status.${p.status}`)}</span>
+            {p.link !== undefined && (
+              <MaybeLink href={p.link} class="code" external>
+                <Icon name="ph:github-logo" size={18} aria-hidden="true" />
+                {t("work.code")}
+              </MaybeLink>
+            )}
+          </p>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p class="more">{t("work.more")}</p>
+</section>
+
+<style>
+  .work {
+    max-width: 90rem;
+    margin-inline: auto;
+    padding: clamp(4.5rem, 9vw, 8rem) clamp(1rem, 3vw, 2.5rem) clamp(3rem, 6vw, 5rem);
+  }
+  .h2 {
+    font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    max-width: 24ch;
+  }
+  .list { display: grid; gap: clamp(3.5rem, 7vw, 6rem); margin-top: clamp(2.25rem, 4vw, 3.5rem); }
+
+  .project {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(1.25rem, 3vw, 3rem);
+    align-items: start;
+  }
+  .project.flip { grid-template-columns: 2.25rem minmax(0, 5fr) minmax(0, 7fr); }
+  .project.flip .media { order: 3; }
+  .project.flip .body { order: 2; }
+
+  .mini { display: grid; gap: 3px; }
+  .mini li {
+    display: grid;
+    place-items: center;
+    height: 1.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    box-shadow: inset 0 0 0 1px var(--rule);
+    border-radius: 3px;
+  }
+  .mini li.on { box-shadow: none; color: var(--on-light-band); }
+  .mini li.on[data-l="7"] { background: var(--l7); box-shadow: inset 0 0 0 1px var(--l4); }
+  .mini li.on[data-l="6"] { background: var(--l6); }
+  .mini li.on[data-l="5"] { background: var(--l5); }
+  .mini li.on[data-l="4"] { background: var(--l4); }
+  .mini li.on[data-l="3"] { background: var(--l3); }
+  .mini li.on[data-l="2"] { background: var(--l2); color: var(--on-dark-band); }
+  .mini li.on[data-l="1"] { background: var(--l1); color: var(--on-dark-band); }
+
+  .body { display: grid; gap: 0.6rem; padding-top: 0.25rem; }
+  .track { font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 720; letter-spacing: -0.015em; }
+  .pname { font-size: 1.15rem; font-weight: 650; }
+  .summary { max-width: 52ch; color: var(--ink-soft); }
+  .stackline { font-size: 0.95rem; }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-top: 0.5rem; font-size: 0.95rem; }
+  .status {
+    padding: 0.1rem 0.55rem;
+    border-radius: var(--radius-ui);
+    box-shadow: inset 0 0 0 1px var(--copper);
+    font-weight: 600;
+  }
+  .meta :global(.code) { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--link); }
+
+  .more { margin-top: clamp(3rem, 6vw, 4.5rem); color: var(--ink-soft); max-width: 60ch; }
+
+  @media (max-width: 47.99rem) {
+    .project, .project.flip { grid-template-columns: 1.75rem minmax(0, 1fr); row-gap: 1.25rem; }
+    .project .media, .project.flip .media { grid-column: 2; order: 0; }
+    .project .body, .project.flip .body { grid-column: 2; order: 0; }
+    .mini { grid-row: span 2; }
+  }
+</style>

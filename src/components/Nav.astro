@@ -1,0 +1,77 @@
+---
+import { useT, homeHref, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+const other: Lang = lang === "en" ? "pt" : "en";
+---
+<header class="nav">
+  <div class="inner">
+    <a href={homeHref(lang)} class="name wide">João Gonçalves</a>
+    <nav aria-label="Primary" class="links">
+      <a href="#work" class="hide-sm">{t("nav.work")}</a>
+      <a href="#skills" class="hide-sm">{t("nav.skills")}</a>
+      <a href="#education" class="hide-md">{t("nav.education")}</a>
+      <a href={homeHref(other)} hreflang={other} lang={other === "pt" ? "pt-PT" : "en"} aria-label={t("nav.switchLabel")} class="lang">
+        {t("nav.switch")}
+      </a>
+      <a href="#contact" class="btn btn-primary contact">{t("nav.contact")}</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: 4rem;
+    background: color-mix(in oklch, var(--paper) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 3vw, 2.5rem);
+  }
+  .name {
+    font-weight: 750;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 1.75rem);
+    font-size: 0.95rem;
+  }
+  .links > a:not(.btn) {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding-block: 0.4rem;
+    transition: color 150ms;
+  }
+  .links > a:not(.btn):hover { color: var(--ink); text-decoration: underline; }
+  .lang {
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    box-shadow: inset 0 0 0 1px var(--rule);
+    border-radius: var(--radius-ui);
+    padding-inline: 0.55rem;
+  }
+  .contact { height: 2.4rem; }
+  @media (max-width: 47.99rem) { .hide-md { display: none; } }
+  @media (max-width: 39.99rem) {
+    .hide-sm { display: none; }
+    .name { font-size: 0.95rem; }
+  }
+</style>

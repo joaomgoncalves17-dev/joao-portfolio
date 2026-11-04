@@ -1,0 +1,92 @@
+---
+/** The page closes on the physical layer: the actual wire to João. */
+import { Icon } from "astro-icon/components";
+import Text from "./Text.astro";
+import MaybeLink from "./MaybeLink.astro";
+import { contact, osi, isTodo } from "../data/content";
+import { useT, pick, homeHref, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+const l1 = osi.find((l) => l.n === 1)!;
+const other: Lang = lang === "en" ? "pt" : "en";
+---
+<footer id="contact" class="close" aria-labelledby="contact-title">
+  <div class="inner">
+    <p class="label"><span class="num wide tabular">1</span> {pick(l1.name, lang)}</p>
+    <div class="content">
+      <h2 id="contact-title" class="h2 wide">{t("contact.title")}</h2>
+      <p class="sub">{t("contact.sub")}</p>
+      <p class="email semi-wide">
+        {isTodo(contact.email)
+          ? <Text value={contact.email} lang={lang} />
+          : <a href={`mailto:${contact.email}`}>{contact.email}</a>}
+      </p>
+      <ul class="links">
+        <li>
+          <Icon name="ph:linkedin-logo" size={20} aria-hidden="true" />
+          <MaybeLink href={contact.linkedin} external>LinkedIn</MaybeLink>
+        </li>
+        <li>
+          <Icon name="ph:github-logo" size={20} aria-hidden="true" />
+          <MaybeLink href={contact.github} external>GitHub</MaybeLink>
+        </li>
+        <li>
+          <Icon name="ph:download-simple" size={20} aria-hidden="true" />
+          <MaybeLink href={contact.cv} download>{t("cta.cv")}</MaybeLink>
+        </li>
+      </ul>
+    </div>
+    <div class="base">
+      <p>© {new Date().getFullYear()} {t("footer.rights")}</p>
+      <a href={homeHref(other)} hreflang={other} aria-label={t("nav.switchLabel")}>{t("nav.switch")}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .close { background: var(--l1); color: var(--on-dark-band); }
+  .inner {
+    display: grid;
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    column-gap: clamp(1rem, 3vw, 3rem);
+    max-width: 90rem;
+    margin-inline: auto;
+    padding: clamp(4.5rem, 9vw, 7.5rem) clamp(1rem, 3vw, 2.5rem) 2rem;
+  }
+  .label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: color-mix(in oklch, var(--on-dark-band) 82%, var(--l1));
+    padding-top: 0.6rem;
+  }
+  .num { font-size: 1.35rem; font-weight: 700; }
+  .content { display: grid; gap: 1rem; }
+  .h2 { font-size: clamp(1.75rem, 3.4vw, 3rem); font-weight: 750; letter-spacing: -0.02em; max-width: 26ch; }
+  .sub { color: color-mix(in oklch, var(--on-dark-band) 82%, var(--l1)); }
+  .email { font-size: clamp(1.3rem, 2.6vw, 2rem); font-weight: 700; margin-top: 0.75rem; }
+  .email a { color: var(--copper); }
+  .links { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin-top: 0.5rem; }
+  .links li { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .links a { color: inherit; }
+  .base {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: clamp(4rem, 8vw, 6rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid color-mix(in oklch, var(--on-dark-band) 22%, var(--l1));
+    font-size: 0.9rem;
+    color: color-mix(in oklch, var(--on-dark-band) 82%, var(--l1));
+  }
+  .base a { color: inherit; font-weight: 650; }
+
+  @media (max-width: 47.99rem) {
+    .inner { grid-template-columns: 1fr; row-gap: 1.25rem; }
+    .label { padding-top: 0; }
+  }
+</style>

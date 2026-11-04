@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/geist-mono";
+
+/* ---------- Tokens ----------
+   The world: seven OSI layer bands stepped from pale cobalt (L7) to deep ink (L1),
+   plus one copper accent (the physical wire) for the primary action. */
+:root {
+  color-scheme: light dark;
+  --paper: oklch(0.985 0.004 262);
+  --ink: oklch(0.2 0.03 264);
+  --ink-soft: oklch(0.42 0.03 264);
+  --rule: oklch(0.88 0.015 262);
+  --copper: oklch(0.72 0.13 55);
+  --copper-hover: oklch(0.77 0.12 58);
+  --on-copper: oklch(0.2 0.03 264);
+  --link: oklch(0.45 0.17 264);
+
+  --l7: oklch(0.955 0.02 262);
+  --l6: oklch(0.915 0.035 262);
+  --l5: oklch(0.87 0.05 262);
+  --l4: oklch(0.8 0.07 263);
+  --l3: oklch(0.67 0.1 264);
+  --l2: oklch(0.47 0.12 265);
+  --l1: oklch(0.33 0.09 266);
+  --on-light-band: var(--ink);
+  --on-dark-band: oklch(0.97 0.01 262);
+
+  --ph: oklch(0.5 0.12 65);
+  --ph-bg: oklch(0.96 0.035 80);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: oklch(0.17 0.02 264);
+    --ink: oklch(0.95 0.01 262);
+    --ink-soft: oklch(0.76 0.02 262);
+    --rule: oklch(0.32 0.03 264);
+    --copper: oklch(0.74 0.13 55);
+    --copper-hover: oklch(0.8 0.11 58);
+    --on-copper: oklch(0.18 0.03 264);
+    --link: oklch(0.78 0.11 262);
+
+    --l7: oklch(0.36 0.06 263);
+    --l6: oklch(0.325 0.06 263);
+    --l5: oklch(0.29 0.055 264);
+    --l4: oklch(0.26 0.05 264);
+    --l3: oklch(0.235 0.045 265);
+    --l2: oklch(0.21 0.04 265);
+    --l1: oklch(0.185 0.035 266);
+    --on-light-band: var(--ink);
+
+    --ph: oklch(0.82 0.11 80);
+    --ph-bg: oklch(0.26 0.035 80);
+  }
+}
+
+@theme {
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-copper: var(--copper);
+  --color-copper-hover: var(--copper-hover);
+  --color-on-copper: var(--on-copper);
+  --color-link: var(--link);
+  --radius-ui: 6px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base & browser surfaces ---------- */
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 100%;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+    scrollbar-color: var(--l3) var(--paper);
+    caret-color: var(--copper);
+  }
+  body { background: var(--paper); }
+  ::selection { background: var(--l2); color: var(--on-dark-band); }
+  h1, h2, h3 { text-wrap: balance; line-height: 1.05; }
+  p { text-wrap: pretty; }
+  a { text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+  :focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  .tabular, time { font-variant-numeric: tabular-nums; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@layer components {
+  /* Expanded width is the world's heading voice. */
+  .wide { font-stretch: 125%; font-variation-settings: "wdth" 125; }
+  .semi-wide { font-stretch: 112%; font-variation-settings: "wdth" 112; }
+
+  /* Visible marker for content still to be filled in. */
+  .ph {
+    color: var(--ph);
+    background: var(--ph-bg);
+    border: 1px dashed currentColor;
+    border-radius: 4px;
+    padding: 0 0.35em;
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    font-weight: 450;
+    font-stretch: 100%;
+    font-variation-settings: normal;
+    letter-spacing: 0;
+    line-height: 1.6;
+    white-space: normal;
+  }
+
+  /* A link whose URL is still missing: readable, but visibly not live. */
+  span[aria-disabled="true"]:not(.btn) {
+    text-decoration: underline dashed;
+    text-decoration-color: var(--copper);
+    text-underline-offset: 0.25em;
+    cursor: help;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 2.75rem;
+    padding-inline: 1.15rem;
+    border-radius: var(--radius-ui);
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 200ms var(--ease-out-expo), transform 120ms var(--ease-out-expo);
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--copper); color: var(--on-copper); }
+  .btn-primary:hover { background: var(--copper-hover); }
+  .btn-ghost { box-shadow: inset 0 0 0 1px currentColor; }
+  .btn-ghost:hover { background: color-mix(in oklch, currentColor 10%, transparent); }
+  .btn[aria-disabled="true"] { cursor: not-allowed; opacity: 0.75; }
+}
