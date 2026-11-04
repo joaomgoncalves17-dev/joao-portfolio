@@ -1,42 +1,73 @@
 @import "tailwindcss";
-@import "@fontsource-variable/schibsted-grotesk/wght.css";
-@import "@fontsource-variable/schibsted-grotesk/wght-italic.css";
+@import "@fontsource-variable/archivo/standard.css";
+@import "@fontsource-variable/archivo/standard-italic.css";
 
 /* ---------- Tokens ----------
-   Light theme only (the brand identity). Purple carries personality and emphasis;
-   gold is a sparse accent and only ever sits behind charcoal text (10.5:1). */
+   Azulejo panel: glazed white tiles, cobalt paint, navy ink, ochre only as a
+   status-stamp fill. The dark scheme inverts the glaze: cobalt tiles painted white. */
 :root {
-  color-scheme: light;
-  --paper: #faf8f5;      /* warm off-white page ground */
-  --white: #ffffff;      /* raised surfaces */
-  --ink: #24212b;        /* charcoal, 14.9:1 on paper */
-  --gray: #5f5a68;       /* secondary text, 6.3:1 on paper */
-  --rule: #e5e0e8;       /* hairlines */
-  --rule-strong: #cfc8d6;
-  --purple: #7851a9;     /* Royal Purple, 5.6:1 on paper */
-  --purple-deep: #5f3f8a;/* hover/pressed purple, 7.7:1 on paper */
-  --purple-tint: #f2edf8;
-  --gold: #ffcc33;       /* Sunglow Gold, fills only */
-  --gold-tint: #fff4cf;
+  color-scheme: light dark;
 
-  --radius: 8px;
+  --ground: #f3f5fb;        /* page glaze */
+  --surface: #fbfcff;       /* plaques and raised panels */
+  --ink: #0e1a44;           /* navy ink, 15.6:1 on ground */
+  --slate: #46527a;         /* secondary text, 7.0:1 on ground */
+  --cobalt: #1f3fae;        /* the one voice, 8.1:1 on ground */
+  --cobalt-strong: #1f3fae; /* solid fills (buttons, close) */
+  --cobalt-deep: #142c86;   /* hover on solid fills */
+  --on-cobalt: #ffffff;
+  --wash: #dfe6fa;          /* pale cobalt wash */
+  --rule: #d5dcef;          /* hairlines, also the tile grout */
+  --rule-strong: #aab6db;
+  --ochre: #e2a33a;         /* status stamp fill only, always under navy */
+  --on-ochre: #0e1a44;
+
+  --tile-bg: #f8faff;
+  --tile-paint: #1f3fae;
+  --tile-wash: #d6e0fb;
+  --grout: #cfd7ee;
+
+  --radius: 6px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --nav-h: 4.5rem;
+  --nav-h: 4.25rem;
+  --gutter: clamp(1rem, 2.5vw, 2rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0a1233;
+    --surface: #101c4c;
+    --ink: #eef2ff;
+    --slate: #aeb9de;
+    --cobalt: #9db3ff;
+    --cobalt-strong: #2f52d6;
+    --cobalt-deep: #3d61ea;
+    --on-cobalt: #ffffff;
+    --wash: #1a2a66;
+    --rule: #1f2f6a;
+    --rule-strong: #34478e;
+    --ochre: #f0b44c;
+    --on-ochre: #0a1233;
+
+    --tile-bg: #17297c;
+    --tile-paint: #e4eaff;
+    --tile-wash: #22389b;
+    --grout: #07102b;
+  }
 }
 
 @theme {
-  --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
-  --color-paper: var(--paper);
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-ground: var(--ground);
   --color-ink: var(--ink);
-  --color-gray: var(--gray);
-  --color-purple: var(--purple);
-  --color-gold: var(--gold);
+  --color-slate: var(--slate);
+  --color-cobalt: var(--cobalt);
 }
 
 /* ---------- Base & browser surfaces ---------- */
 @layer base {
   html {
-    background: var(--paper);
+    background: var(--ground);
     color: var(--ink);
     font-family: var(--font-sans);
     font-size: 100%;
@@ -45,20 +76,20 @@
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--nav-h) + 1rem);
-    scrollbar-color: var(--rule-strong) var(--paper);
-    caret-color: var(--purple);
-    -webkit-tap-highlight-color: color-mix(in srgb, var(--purple) 18%, transparent);
+    scrollbar-color: var(--rule-strong) var(--ground);
+    caret-color: var(--cobalt);
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--cobalt) 18%, transparent);
     touch-action: manipulation;
   }
-  body { background: var(--paper); overflow-x: clip; }
-  ::selection { background: var(--gold); color: var(--ink); }
+  body { background: var(--ground); overflow-x: clip; }
+  ::selection { background: var(--cobalt-strong); color: var(--on-cobalt); }
   h1, h2, h3 { text-wrap: balance; }
   p, li, dd { text-wrap: pretty; }
   a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
   :focus-visible {
-    outline: 2px solid var(--purple);
+    outline: 2px solid var(--cobalt);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 3px;
   }
   .tabular { font-variant-numeric: tabular-nums; }
 }
@@ -75,48 +106,50 @@
 @layer components {
   .wrap {
     width: 100%;
-    max-width: 80rem;
+    max-width: 82rem;
     margin-inline: auto;
-    padding-inline: max(clamp(1.25rem, 5vw, 3rem), env(safe-area-inset-left), env(safe-area-inset-right));
+    padding-inline: max(clamp(1rem, 4vw, 3rem), env(safe-area-inset-left), env(safe-area-inset-right));
   }
-  .section { padding-block: clamp(5rem, 11vw, 9rem); }
+  .section { padding-block: clamp(5rem, 10vw, 8.5rem); }
 
-  /* Section headings: heavy, tight, never preceded by a kicker. */
+  /* Section headings: wide, heavy, standing alone. */
   .h2 {
-    font-size: clamp(2.25rem, 4.6vw, 3.75rem);
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
     font-weight: 800;
-    letter-spacing: -0.035em;
+    font-stretch: 125%;
+    letter-spacing: -0.03em;
     line-height: 1.02;
   }
   .lede {
-    font-size: clamp(1.15rem, 1.5vw, 1.3rem);
-    line-height: 1.5;
-    color: var(--gray);
+    font-size: clamp(1.1rem, 1.45vw, 1.28rem);
+    line-height: 1.55;
+    color: var(--slate);
   }
 
   /* Placeholder for content still to be supplied. Inherits the surrounding type. */
   .ph {
     font-style: italic;
     font-weight: inherit;
-    color: var(--gray);
-    background: var(--purple-tint);
-    border: 1px dashed color-mix(in srgb, var(--purple) 45%, transparent);
-    border-radius: 4px;
+    color: var(--slate);
+    background: var(--wash);
+    border: 1px dashed color-mix(in srgb, var(--cobalt) 50%, transparent);
+    border-radius: 3px;
     padding: 0.05em 0.4em;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
 
-  /* Buttons: 48px tall, one radius, explicit states. */
+  /* Buttons: 48px, they seat like a tile being pressed into mortar. */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
     min-height: 3rem;
-    padding: 0.7rem 1.4rem;
+    padding: 0.7rem 1.35rem;
     border-radius: var(--radius);
-    font-weight: 650;
+    font-weight: 700;
+    font-stretch: 108%;
     font-size: 1rem;
     line-height: 1.2;
     white-space: nowrap;
@@ -127,43 +160,67 @@
       box-shadow 220ms var(--ease),
       transform 160ms var(--ease);
   }
-  .btn:active { transform: translateY(1px) scale(0.985); }
+  .btn:active { transform: translateY(2px) scale(0.985); }
   .btn .arrow { transition: transform 260ms var(--ease); }
   .btn:hover .arrow { transform: translateX(3px); }
-  .btn-primary { background: var(--purple); color: var(--white); }
-  .btn-primary:hover { background: var(--purple-deep); }
-  .btn-outline { box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); }
-  .btn-outline:hover { background: var(--ink); color: var(--paper); }
-  .btn-gold { background: var(--gold); color: var(--ink); }
-  .btn-gold:hover { background: var(--white); }
+  .btn-primary {
+    background: var(--cobalt-strong);
+    color: var(--on-cobalt);
+    box-shadow: 0 10px 22px -14px color-mix(in srgb, var(--cobalt-strong) 75%, transparent);
+  }
+  .btn-primary:hover { background: var(--cobalt-deep); }
+  .btn-primary:active { box-shadow: 0 4px 10px -8px color-mix(in srgb, var(--cobalt-strong) 75%, transparent); }
+  .btn-frame {
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--cobalt), inset 0 0 0 4px var(--surface), inset 0 0 0 5px color-mix(in srgb, var(--cobalt) 45%, transparent);
+  }
+  .btn-frame:hover { background: var(--wash); }
   .btn[aria-disabled="true"] { cursor: not-allowed; }
 
-  /* Status badge: gold fill = work in progress; purple tint = studying. */
-  .badge {
+  /* Status stamp: a small seal pressed onto the record. */
+  .stamp {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.2rem 0.65rem;
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 650;
+    padding: 0.22rem 0.65rem;
+    border-radius: 3px;
+    font-size: 0.78rem;
+    font-weight: 750;
+    font-stretch: 112%;
+    letter-spacing: 0.02em;
     line-height: 1.4;
     white-space: nowrap;
   }
-  .badge-gold { background: var(--gold); color: var(--ink); }
-  .badge-purple { background: var(--purple-tint); color: var(--purple-deep); }
-  .badge-quiet { background: var(--gold-tint); color: var(--ink); }
+  .stamp-ochre { background: var(--ochre); color: var(--on-ochre); }
+  .stamp-cobalt { background: var(--wash); color: var(--cobalt); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cobalt) 35%, transparent); }
+  .stamp-quiet { color: var(--slate); box-shadow: inset 0 0 0 1px var(--rule-strong); }
 
-  /* Scroll-linked entrance: content is always visible where the API is unsupported. */
+  /* Network tile. The wrapper holds the quarter-turn; the svg is free for entrances. */
+  .t {
+    display: block;
+    aspect-ratio: 1;
+    transform: rotate(calc(var(--r, 0) * 90deg));
+    transition: transform 700ms var(--ease);
+  }
+  .t svg { display: block; width: 100%; height: 100%; }
+
+  /* Inverted glaze: cobalt ground painted white (contact close, brand mark). */
+  .glaze-invert {
+    --tile-bg: var(--cobalt-strong);
+    --tile-paint: #f4f7ff;
+    --tile-wash: color-mix(in srgb, #ffffff 16%, var(--cobalt-strong));
+  }
+
+  /* Scroll-linked entrance: content stays visible where the API is unsupported. */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .reveal {
         animation: reveal linear both;
         animation-timeline: view();
-        animation-range: entry 0% entry 45%;
+        animation-range: entry 0% entry 40%;
       }
       @keyframes reveal {
-        from { opacity: 0; transform: translateY(28px); }
+        from { opacity: 0; transform: translateY(24px); }
       }
     }
   }

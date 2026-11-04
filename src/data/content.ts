@@ -33,11 +33,11 @@ export const contact: {
 /* Hero focus areas                                                    */
 /* ------------------------------------------------------------------ */
 
-export const focusAreas: { icon: string; name: L }[] = [
-  { icon: "lucide:server", name: { en: "Systems Administration", pt: "Administração de Sistemas" } },
-  { icon: "lucide:network", name: { en: "Networking", pt: "Redes" } },
-  { icon: "lucide:cloud", name: { en: "Cloud Infrastructure", pt: "Infraestrutura Cloud" } },
-  { icon: "lucide:code-xml", name: { en: "Software Development", pt: "Desenvolvimento de Software" } },
+export const focusAreas: { icon: string; name: L; short: L }[] = [
+  { icon: "ph:hard-drives", name: { en: "Systems Administration", pt: "Administração de Sistemas" }, short: { en: "Systems", pt: "Sistemas" } },
+  { icon: "ph:network", name: { en: "Networking", pt: "Redes" }, short: { en: "Networks", pt: "Redes" } },
+  { icon: "ph:cloud", name: { en: "Cloud Infrastructure", pt: "Infraestrutura Cloud" }, short: { en: "Cloud", pt: "Cloud" } },
+  { icon: "ph:code", name: { en: "Software Development", pt: "Desenvolvimento de Software" }, short: { en: "Software", pt: "Software" } },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -85,7 +85,7 @@ export type SkillGroup = { icon: string; name: L; items: { name: L | string; lev
 
 export const skillGroups: SkillGroup[] = [
   {
-    icon: "lucide:server",
+    icon: "ph:hard-drives",
     name: { en: "Systems & Infrastructure", pt: "Sistemas e Infraestrutura" },
     items: [
       { name: "Windows Server", level: "hands-on" },
@@ -97,7 +97,7 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    icon: "lucide:network",
+    icon: "ph:network",
     name: { en: "Networking", pt: "Redes" },
     items: [
       { name: "TCP/IP", level: "hands-on" },
@@ -107,7 +107,7 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    icon: "lucide:cloud",
+    icon: "ph:cloud",
     name: { en: "Cloud & Tools", pt: "Cloud e Ferramentas" },
     items: [
       { name: "Microsoft Azure", level: "learning" },
@@ -117,7 +117,7 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    icon: "lucide:code-xml",
+    icon: "ph:code",
     name: { en: "Development", pt: "Desenvolvimento" },
     items: [
       { name: "Python", level: "hands-on" },
@@ -154,7 +154,7 @@ const pending = () => todo("Coming soon", "Em breve");
 export const projects: Project[] = [
   {
     id: "homelab",
-    icon: "lucide:server-cog",
+    icon: "ph:hard-drives",
     title: { en: "Systems Administration Homelab", pt: "Homelab de Administração de Sistemas" },
     status: "in-progress",
     summary: {
@@ -172,7 +172,7 @@ export const projects: Project[] = [
   },
   {
     id: "iefp-infrastructure",
-    icon: "lucide:network",
+    icon: "ph:network",
     title: { en: "IEFP+ Infrastructure Project", pt: "Projeto de Infraestrutura IEFP+" },
     status: "under-construction",
     summary: {

@@ -18,11 +18,9 @@ const links: { id: string; key: UIKey }[] = [
 <header class="nav">
   <div class="wrap bar">
     <a href="#home" class="brand" aria-label="João Gonçalves, home">
-      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
-        <rect width="40" height="40" rx="9" fill="var(--purple)" />
-        <rect x="28" y="28" width="12" height="12" rx="3" fill="var(--gold)" />
-        <text x="18" y="25.5" text-anchor="middle" font-size="15" font-weight="800" fill="#fff" font-family="inherit" letter-spacing="-0.5">JG</text>
-      </svg>
+      <span class="mark glaze-invert" aria-hidden="true">
+        <svg viewBox="0 0 100 100" focusable="false"><use href="#tile-net" /></svg>
+      </span>
       <span class="brand-name" translate="no">João Gonçalves</span>
     </a>
 
@@ -41,8 +39,8 @@ const links: { id: string; key: UIKey }[] = [
     </nav>
 
     <button type="button" class="menu-btn" popovertarget="menu" aria-controls="menu">
-      <Icon name="lucide:menu" size={22} aria-hidden="true" class="i-open" />
-      <Icon name="lucide:x" size={22} aria-hidden="true" class="i-close" />
+      <Icon name="ph:list" size={22} aria-hidden="true" class="i-open" />
+      <Icon name="ph:x" size={22} aria-hidden="true" class="i-close" />
       <span>{t("nav.menu")}</span>
     </button>
   </div>
@@ -56,7 +54,7 @@ const links: { id: string; key: UIKey }[] = [
         <li><a href="#contact" class="m-link">{t("nav.contact")}</a></li>
       </ul>
       <a href={homeHref(other)} hreflang={other} lang={other === "pt" ? "pt-PT" : "en"} class="m-lang">
-        <Icon name="lucide:languages" size={18} aria-hidden="true" />
+        <Icon name="ph:translate" size={18} aria-hidden="true" />
         {t("nav.switchLabel")}
       </a>
     </nav>
@@ -97,8 +95,13 @@ const links: { id: string; key: UIKey }[] = [
     top: 0;
     z-index: 40;
     height: var(--nav-h);
-    background: var(--paper);
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
     border-bottom: 1px solid var(--rule);
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .nav { background: var(--ground); backdrop-filter: none; -webkit-backdrop-filter: none; }
   }
   .bar {
     display: flex;
@@ -115,9 +118,19 @@ const links: { id: string; key: UIKey }[] = [
     min-height: 2.75rem;
     text-decoration: none;
   }
-  .mark { width: 2.25rem; height: 2.25rem; flex: none; transition: transform 300ms var(--ease); }
-  .brand:hover .mark { transform: rotate(-6deg); }
-  .brand-name { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.02em; white-space: nowrap; }
+  .mark {
+    display: block;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    padding: 2px;
+    border-radius: 3px;
+    background: var(--cobalt-strong);
+    transition: transform 600ms var(--ease);
+  }
+  .mark svg { display: block; width: 100%; height: 100%; }
+  .brand:hover .mark { transform: rotate(90deg); }
+  .brand-name { font-weight: 800; font-stretch: 115%; font-size: 1.05rem; letter-spacing: -0.02em; white-space: nowrap; }
 
   .desktop ul { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.75rem); }
   .link {
@@ -125,8 +138,8 @@ const links: { id: string; key: UIKey }[] = [
     display: inline-block;
     padding-block: 0.6rem;
     font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--gray);
+    font-weight: 560;
+    color: var(--slate);
     text-decoration: none;
     transition: color 200ms var(--ease);
   }
@@ -137,7 +150,7 @@ const links: { id: string; key: UIKey }[] = [
     right: 0;
     bottom: 0.3rem;
     height: 2px;
-    background: var(--purple);
+    background: var(--cobalt);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 280ms var(--ease);
@@ -156,7 +169,7 @@ const links: { id: string; key: UIKey }[] = [
     box-shadow: inset 0 0 0 1px var(--rule-strong);
     transition: box-shadow 200ms var(--ease), color 200ms var(--ease);
   }
-  .lang:hover { box-shadow: inset 0 0 0 1.5px var(--purple); color: var(--purple-deep); }
+  .lang:hover { box-shadow: inset 0 0 0 1.5px var(--cobalt); color: var(--cobalt); }
   .contact { min-height: 2.75rem; padding-block: 0.5rem; }
 
   .menu-btn {
@@ -169,7 +182,7 @@ const links: { id: string; key: UIKey }[] = [
     box-shadow: inset 0 0 0 1px var(--rule-strong);
     font: inherit;
     font-weight: 650;
-    background: var(--white);
+    background: var(--surface);
     color: var(--ink);
     cursor: pointer;
   }
@@ -186,32 +199,33 @@ const links: { id: string; key: UIKey }[] = [
     padding: 0.5rem clamp(1.25rem, 5vw, 3rem) 2rem;
     border: 0;
     border-bottom: 1px solid var(--rule);
-    background: var(--paper);
+    background: var(--ground);
     color: var(--ink);
-    box-shadow: 0 24px 40px -24px rgb(36 33 43 / 0.25);
+    box-shadow: 0 24px 40px -24px rgb(14 26 68 / 0.3);
     overscroll-behavior: contain;
     max-height: calc(100dvh - var(--nav-h));
     overflow-y: auto;
   }
-  .menu::backdrop { background: rgb(36 33 43 / 0.2); }
+  .menu::backdrop { background: rgb(14 26 68 / 0.25); }
   .m-link {
     display: block;
     padding-block: 0.9rem;
     font-size: 1.6rem;
-    font-weight: 750;
+    font-weight: 780;
+    font-stretch: 115%;
     letter-spacing: -0.02em;
     text-decoration: none;
     border-bottom: 1px solid var(--rule);
   }
-  .m-link:hover { color: var(--purple); }
+  .m-link:hover { color: var(--cobalt); }
   .m-lang {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     min-height: 2.75rem;
     margin-top: 1.25rem;
-    font-weight: 600;
-    color: var(--purple-deep);
+    font-weight: 650;
+    color: var(--cobalt);
   }
 
   @media (prefers-reduced-motion: no-preference) {

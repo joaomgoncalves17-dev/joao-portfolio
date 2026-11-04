@@ -14,14 +14,14 @@ const other: Lang = lang === "en" ? "pt" : "en";
       <a href={homeHref(other)} hreflang={other} aria-label={t("nav.switchLabel")}>{t("nav.switch")}</a>
       <a href="#home">
         {t("footer.top")}
-        <Icon name="lucide:arrow-up" size={16} aria-hidden="true" />
+        <Icon name="ph:arrow-up" size={16} aria-hidden="true" />
       </a>
     </div>
   </div>
 </footer>
 
 <style>
-  .footer { background: var(--paper); }
+  .footer { background: var(--ground); }
   .foot {
     display: flex;
     flex-wrap: wrap;
@@ -30,7 +30,7 @@ const other: Lang = lang === "en" ? "pt" : "en";
     gap: 1rem;
     padding-block: 1.75rem;
     font-size: 0.92rem;
-    color: var(--gray);
+    color: var(--slate);
   }
   .foot-links { display: flex; gap: 1.5rem; }
   .foot-links a {
@@ -44,6 +44,6 @@ const other: Lang = lang === "en" ? "pt" : "en";
     color: var(--ink);
     text-decoration: none;
   }
-  .foot-links a:hover { color: var(--purple-deep); text-decoration: underline; }
+  .foot-links a:hover { color: var(--cobalt); text-decoration: underline; }
 
 </style>

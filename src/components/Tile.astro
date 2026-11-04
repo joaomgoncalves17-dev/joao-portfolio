@@ -1,0 +1,6 @@
+---
+/** One network tile from the sprite. `r` is its quarter-turn count (0 to 3). */
+interface Props { r?: number; class?: string; style?: string }
+const { r = 0, class: cls, style } = Astro.props;
+---
+<span class:list={["t", cls]} style={`--r:${r};${style ?? ""}`} aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><use href="#tile-net" /></svg></span>

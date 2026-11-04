@@ -1,0 +1,20 @@
+---
+/** A border band of tiles (the cercadura that edges an azulejo panel). Decorative. */
+import Tile from "./Tile.astro";
+interface Props { count?: number; class?: string }
+const { count = 56, class: cls } = Astro.props;
+---
+<div class:list={["frieze", cls]} aria-hidden="true">
+  {Array.from({ length: count }, (_, i) => <Tile r={(i % 2) + (Math.floor(i / 2) % 2) * 2} style={`--paint-o:${(0.84 + ((i * 37) % 17) / 100).toFixed(2)}`} />)}
+</div>
+
+<style>
+  .frieze {
+    display: flex;
+    gap: 2px;
+    padding-block: 2px;
+    overflow: hidden;
+    background: var(--grout);
+  }
+  .frieze :global(.t) { flex: none; width: clamp(1.9rem, 3vw, 2.6rem); }
+</style>

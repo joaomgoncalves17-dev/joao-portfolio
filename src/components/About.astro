@@ -16,9 +16,9 @@ const t = useT(lang);
       {about.body.map((p) => <p>{pick(p, lang)}</p>)}
     </div>
 
-    <dl class="facts">
-      {about.facts.map((f) => (
-        <div>
+    <dl class="plaques">
+      {about.facts.map((f, i) => (
+        <div class="plaque reveal" style={`--i:${i}`}>
           <dt>{pick(f.label, lang)}</dt>
           <dd>{pick(f.value, lang)}</dd>
         </div>
@@ -31,44 +31,72 @@ const t = useT(lang);
   .grid {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: clamp(1rem, 2.5vw, 2rem);
-    row-gap: clamp(2rem, 4vw, 3.5rem);
+    column-gap: var(--gutter);
+    row-gap: clamp(2rem, 4vw, 3.25rem);
   }
   .title { grid-column: 1 / span 4; }
   .lead {
     grid-column: 5 / -1;
-    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    font-size: clamp(1.45rem, 2.5vw, 2.15rem);
     font-weight: 600;
-    font-style: italic;
+    font-stretch: 104%;
     letter-spacing: -0.02em;
     line-height: 1.25;
-    max-width: 30ch;
+    max-width: 32ch;
   }
   .body {
-    grid-column: 5 / span 5;
+    grid-column: 5 / span 6;
     display: grid;
-    align-content: start;
     gap: 1.25rem;
     font-size: 1.075rem;
-    color: var(--gray);
-    max-width: 62ch;
+    color: var(--slate);
+    max-width: 64ch;
   }
-  .facts {
-    grid-column: 10 / -1;
-    align-self: start;
-    border-top: 2px solid var(--purple);
+
+  /* Facts as street-name plaques: white glaze, a cobalt double frame, painted letters. */
+  .plaques {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--gutter);
+    margin-top: clamp(0.5rem, 2vw, 1.5rem);
   }
-  .facts > div { padding-block: 0.9rem; border-bottom: 1px solid var(--rule); }
-  dt { font-size: 0.85rem; font-weight: 650; color: var(--purple-deep); }
-  dd { margin-top: 0.15rem; font-weight: 550; line-height: 1.4; }
+  .plaque {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    text-align: center;
+    max-width: 100%;
+    padding: 1.05rem 1.9rem 1.15rem;
+    background: var(--surface);
+    border-radius: 4px;
+    box-shadow:
+      inset 0 0 0 2px var(--cobalt),
+      inset 0 0 0 6px var(--surface),
+      inset 0 0 0 7px color-mix(in srgb, var(--cobalt) 40%, transparent),
+      0 14px 28px -24px color-mix(in srgb, var(--cobalt) 60%, transparent);
+  }
+  dt { order: 2; font-size: 0.8rem; font-weight: 650; color: var(--slate); }
+  dd {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    font-weight: 780;
+    font-stretch: 125%;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--cobalt);
+  }
 
   @media (max-width: 63.99rem) {
-    .title { grid-column: 1 / -1; }
-    .lead { grid-column: 1 / -1; }
-    .body { grid-column: 1 / span 7; }
-    .facts { grid-column: 9 / -1; }
+    .title, .lead { grid-column: 1 / -1; }
+    .body { grid-column: 1 / span 10; }
   }
   @media (max-width: 47.99rem) {
-    .body, .facts { grid-column: 1 / -1; }
+    .body { grid-column: 1 / -1; }
+  }
+  @media (max-width: 29.99rem) {
+    .plaque { flex: 1 1 100%; }
   }
 </style>

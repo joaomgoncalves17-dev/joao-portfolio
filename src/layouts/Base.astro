@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
 import { useT, homeHref, type Lang } from "../i18n/ui";
-import fontUrl from "@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url";
+import TileSprite from "../components/TileSprite.astro";
+import fontUrl from "@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2?url";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -27,8 +28,9 @@ const person = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{t("meta.title")}</title>
     <meta name="description" content={t("meta.description")} />
-    <meta name="theme-color" content="#faf8f5" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f3f5fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a1233" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" as="font" type="font/woff2" href={fontUrl} crossorigin />
     <link rel="canonical" href={url} />
@@ -55,6 +57,7 @@ const person = {
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
   <body>
+    <TileSprite />
     <a href="#main" class="skip">{t("nav.skip")}</a>
     <slot />
   </body>
@@ -69,7 +72,7 @@ const person = {
     padding: 0.6rem 1rem;
     border-radius: var(--radius);
     background: var(--ink);
-    color: var(--paper);
+    color: var(--ground);
     font-weight: 650;
     text-decoration: none;
     transition: top 160ms var(--ease);

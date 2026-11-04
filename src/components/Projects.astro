@@ -4,6 +4,7 @@
  * material still to come is named once, honestly, instead of as a row of placeholders.
  */
 import { Icon } from "astro-icon/components";
+import Tile from "./Tile.astro";
 import { projects, isTodo, type AssetKind } from "../data/content";
 import { useT, pick, type Lang } from "../i18n/ui";
 
@@ -12,17 +13,20 @@ const { lang } = Astro.props;
 const t = useT(lang);
 
 const assetIcon: Record<AssetKind, string> = {
-  repo: "lucide:github",
-  docs: "lucide:file-text",
-  diagram: "lucide:workflow",
-  screenshots: "lucide:image",
+  repo: "ph:github-logo",
+  docs: "ph:file-text",
+  diagram: "ph:tree-structure",
+  screenshots: "ph:image",
 };
-const statusClass = { "in-progress": "badge-gold", "under-construction": "badge-gold", completed: "badge-purple" } as const;
+const statusClass = { "in-progress": "stamp-ochre", "under-construction": "stamp-ochre", completed: "stamp-cobalt" } as const;
+// A 3x3 field per project; the centre is the project's figure tile.
+const field = (seed: number) =>
+  Array.from({ length: 8 }, (_, i) => Math.floor(Math.abs(Math.sin((i + 1) * 7.31 + seed * 3.7)) * 4));
 
-const cases = projects.map((p) => {
+const cases = projects.map((p, n) => {
   const ready = p.assets.filter((a) => !isTodo(a.href)) as { kind: AssetKind; href: string }[];
   const pending = p.assets.filter((a) => isTodo(a.href)).map((a) => t(`projects.asset.${a.kind}`));
-  return { p, ready, pending };
+  return { p, ready, pending, rots: field(n + 1) };
 });
 const list = (items: string[]) =>
   new Intl.ListFormat(lang === "pt" ? "pt-PT" : "en-GB", { type: "conjunction" }).format(
@@ -37,34 +41,39 @@ const list = (items: string[]) =>
     </div>
 
     <div class="list">
-      {cases.map(({ p, ready, pending }) => (
-        <article class="project reveal" aria-labelledby={`p-${p.id}`}>
+      {cases.map(({ p, ready, pending, rots }) => (
+        <article class="project" aria-labelledby={`p-${p.id}`}>
+          <div class="field" aria-hidden={p.image ? undefined : "true"}>
+            {p.image ? (
+              <img src={p.image.src} alt={pick(p.image.alt, lang)} width="1600" height="1000" loading="lazy" decoding="async" class="shot" />
+            ) : (
+              <>
+                {rots.slice(0, 4).map((r, i) => <Tile r={r} class="ft" style={`--paint-o:${0.84 + ((i * 5 + r) % 5) * 0.04}`} />)}
+                <span class="fcenter">
+                  <svg viewBox="0 0 100 100" focusable="false"><use href="#tile-fig" /></svg>
+                  <Icon name={p.icon} size={40} />
+                </span>
+                {rots.slice(4).map((r, i) => <Tile r={r} class="ft" style={`--paint-o:${0.84 + ((i * 3 + r) % 5) * 0.04}`} />)}
+              </>
+            )}
+          </div>
+
           <div class="info">
-            <span class:list={["badge", statusClass[p.status]]}>{t(`projects.status.${p.status}`)}</span>
+            <span class:list={["stamp", statusClass[p.status]]}>{t(`projects.status.${p.status}`)}</span>
             <h3 id={`p-${p.id}`} class="title">{pick(p.title, lang)}</h3>
             <p class="summary">{pick(p.summary, lang)}</p>
             <ul class="topics" aria-label={t("projects.topics")}>
               {p.topics.map((topic) => <li translate={typeof topic === "string" ? "no" : undefined}>{pick(topic, lang)}</li>)}
             </ul>
-          </div>
-
-          <aside class="side" aria-label={t("projects.material")}>
-            {p.image ? (
-              <img src={p.image.src} alt={pick(p.image.alt, lang)} width="1600" height="1000" loading="lazy" decoding="async" class="shot" />
-            ) : (
-              <div class="blueprint" aria-hidden="true">
-                <span class="bp-icon"><Icon name={p.icon} size={30} /></span>
-              </div>
-            )}
 
             {ready.length > 0 && (
-              <ul class="ready">
+              <ul class="ready" aria-label={t("projects.material")}>
                 {ready.map((a) => (
                   <li>
                     <a href={a.href} target="_blank" rel="noopener noreferrer" class="asset">
                       <Icon name={assetIcon[a.kind]} size={18} aria-hidden="true" />
                       <span>{t(`projects.asset.${a.kind}`)}</span>
-                      <Icon name="lucide:arrow-up-right" size={18} aria-hidden="true" class="go" />
+                      <Icon name="ph:arrow-up-right" size={18} aria-hidden="true" class="go" />
                     </a>
                   </li>
                 ))}
@@ -73,11 +82,11 @@ const list = (items: string[]) =>
 
             {pending.length > 0 && (
               <p class="pending">
-                <Icon name="lucide:clock-3" size={16} aria-hidden="true" />
+                <Icon name="ph:clock" size={18} aria-hidden="true" />
                 <span>{t("projects.pending")} {list(pending)}.</span>
               </p>
             )}
-          </aside>
+          </div>
         </article>
       ))}
     </div>
@@ -85,71 +94,70 @@ const list = (items: string[]) =>
 </section>
 
 <style>
-  .head { display: grid; gap: 1rem; max-width: 40rem; }
-  .list { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 2rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .head { display: grid; gap: 1rem; max-width: 42rem; }
+  .list { display: grid; gap: clamp(1.75rem, 3.5vw, 2.5rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
 
   .project {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-    gap: clamp(1.75rem, 4vw, 3.5rem);
-    padding: clamp(1.5rem, 3.5vw, 2.75rem);
-    background: var(--white);
-    border: 1px solid var(--rule);
-    border-radius: 12px;
-    transition: border-color 260ms var(--ease), transform 260ms var(--ease), box-shadow 260ms var(--ease);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    gap: clamp(1.75rem, 4.5vw, 4rem);
+    padding: clamp(1rem, 2.4vw, 1.75rem);
+    background: var(--surface);
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px var(--rule);
+    transition: box-shadow 300ms var(--ease);
   }
-  .project:hover {
-    border-color: color-mix(in srgb, var(--purple) 45%, var(--rule));
-    transform: translateY(-3px);
-    box-shadow: 0 18px 40px -22px rgb(95 63 138 / 0.35);
+  .project:hover { box-shadow: inset 0 0 0 1.5px var(--cobalt), 0 24px 40px -30px color-mix(in srgb, var(--cobalt) 70%, transparent); }
+  .project:nth-child(even) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .project:nth-child(even) .field { order: 2; }
+
+  /* The tile field: a 3x3 patch of the network with the project's figure at its centre.
+     Hovering the case file turns every tile a quarter, rerouting the whole patch. */
+  .field {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2px;
+    padding: 2px;
+    background: var(--grout);
+    border-radius: 3px;
+  }
+  .project:hover .field :global(.ft) { transform: rotate(calc((var(--r) + 1) * 90deg)); }
+  .fcenter { position: relative; display: grid; place-items: center; aspect-ratio: 1; color: var(--tile-paint); }
+  .fcenter > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .shot { grid-column: 1 / -1; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .field :global(.ft svg) {
+        animation: route linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 40%;
+      }
+      @keyframes route { from { transform: rotate(-180deg) scale(0.9); opacity: 0.25; } }
+    }
   }
 
-  .info { display: grid; align-content: start; justify-items: start; gap: 1rem; }
+  .info { display: grid; align-content: start; justify-items: start; gap: 1rem; padding-block: 0.5rem; }
   .title {
-    font-size: clamp(1.6rem, 2.8vw, 2.35rem);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
     font-weight: 800;
-    letter-spacing: -0.03em;
+    font-stretch: 112%;
+    letter-spacing: -0.025em;
     line-height: 1.08;
   }
-  .summary { color: var(--gray); font-size: 1.075rem; max-width: 56ch; }
+  .summary { color: var(--slate); font-size: 1.075rem; max-width: 58ch; }
   .topics { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
   .topics li {
-    padding: 0.2rem 0.65rem;
-    border-radius: 999px;
+    padding: 0.22rem 0.65rem;
+    border-radius: 3px;
+    background: var(--ground);
     box-shadow: inset 0 0 0 1px var(--rule-strong);
     font-size: 0.85rem;
-    font-weight: 550;
+    font-weight: 580;
   }
 
-  .side { display: grid; align-content: start; gap: 1rem; }
-  .shot { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radius); }
-
-  /* Placeholder: a small drafting-grid slot where the architecture diagram will go. */
-  .blueprint {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 16 / 10;
-    border-radius: var(--radius);
-    background-color: var(--purple-tint);
-    background-image:
-      linear-gradient(color-mix(in srgb, var(--purple) 10%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--purple) 10%, transparent) 1px, transparent 1px);
-    background-size: 22px 22px;
-    background-position: -1px -1px;
-  }
-  .bp-icon {
-    display: grid;
-    place-items: center;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 999px;
-    background: var(--white);
-    color: var(--purple);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--purple) 25%, transparent);
-    transition: transform 400ms var(--ease);
-  }
-  .project:hover .bp-icon { transform: scale(1.06) rotate(-4deg); }
-
+  .ready { width: 100%; }
   .ready li { border-bottom: 1px solid var(--rule); }
   .asset {
     display: grid;
@@ -157,29 +165,31 @@ const list = (items: string[]) =>
     align-items: center;
     gap: 0.6rem;
     min-height: 2.75rem;
-    font-weight: 600;
+    font-weight: 650;
     text-decoration: none;
   }
-  .asset :global(svg) { color: var(--purple); }
+  .asset :global(svg) { color: var(--cobalt); }
   .asset .go { transition: transform 240ms var(--ease); }
-  .asset:hover span { color: var(--purple-deep); text-decoration: underline; }
+  .asset:hover span { color: var(--cobalt); text-decoration: underline; }
   .asset:hover .go { transform: translate(2px, -2px); }
 
   .pending {
     display: flex;
     gap: 0.5rem;
     align-items: baseline;
-    font-size: 0.92rem;
+    margin-top: 0.25rem;
+    font-size: 0.94rem;
     line-height: 1.45;
-    color: var(--gray);
+    color: var(--slate);
   }
-  .pending :global(svg) { flex: none; color: var(--purple); transform: translateY(2px); }
+  .pending :global(svg) { flex: none; color: var(--cobalt); transform: translateY(3px); }
 
   @media (max-width: 55.99rem) {
-    .project { grid-template-columns: minmax(0, 1fr); }
-    .blueprint { display: none; }
+    .project, .project:nth-child(even) { grid-template-columns: minmax(0, 1fr); }
+    .project:nth-child(even) .field { order: 0; }
+    .field { max-width: 22rem; }
   }
   @media (hover: none) {
-    .project:hover { transform: none; box-shadow: none; }
+    .project:hover .field :global(.ft) { transform: rotate(calc(var(--r) * 90deg)); }
   }
 </style>
