@@ -1,0 +1,146 @@
+---
+import { Icon } from "astro-icon/components";
+import { focusAreas } from "../data/content";
+import { useT, pick, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section id="home" class="hero" aria-labelledby="hero-title">
+  <div class="wrap inner">
+    <h1 id="hero-title" class="headline">
+      <span class="line"><span style="--i:0">{t("hero.line1")}</span></span>
+      <span class="line accent"><span style="--i:1">{t("hero.line2")}</span></span>
+    </h1>
+
+    <div class="lower">
+      <div class="intro">
+        <p class="sub">{t("hero.sub")}</p>
+        <div class="ctas">
+          <a href="#projects" class="btn btn-primary">
+            {t("cta.projects")}
+            <Icon name="lucide:arrow-right" size={18} aria-hidden="true" class="arrow" />
+          </a>
+          <a href="#contact" class="btn btn-outline">{t("cta.contact")}</a>
+        </div>
+      </div>
+
+      <div class="focus">
+        <h2 class="sr-only">{t("hero.focus")}</h2>
+        <ul>
+          {focusAreas.map((f) => (
+            <li>
+              <Icon name={f.icon} size={20} aria-hidden="true" />
+              <span>{pick(f.name, lang)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <a href="#about" class="scroll">
+      <span class="scroll-icon" aria-hidden="true"><Icon name="lucide:arrow-down" size={16} /></span>
+      {t("hero.scroll")}
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    border-bottom: 1px solid var(--rule);
+  }
+  .inner {
+    display: grid;
+    align-content: center;
+    gap: clamp(2.5rem, 6vh, 4.5rem);
+    min-height: min(calc(100svh - var(--nav-h)), 56rem);
+    padding-block: clamp(3rem, 8vh, 5.5rem) clamp(2rem, 5vh, 3rem);
+  }
+
+  .headline {
+    font-size: clamp(2.6rem, 6.4vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .line { display: block; overflow: clip; padding-bottom: 0.1em; margin-bottom: -0.04em; }
+  .line > span { display: block; }
+  .accent { color: var(--purple); }
+
+  .lower {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2.5vw, 2rem);
+    row-gap: 2.5rem;
+    align-items: end;
+    padding-top: clamp(2rem, 4vh, 2.75rem);
+    border-top: 1px solid var(--rule-strong);
+  }
+  .intro { grid-column: 1 / span 6; display: grid; gap: 2rem; }
+  .sub {
+    max-width: 38rem;
+    font-size: clamp(1.1rem, 1.45vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--gray);
+  }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  .focus { grid-column: 8 / -1; }
+  .focus ul { display: grid; }
+  .focus li {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-block: 0.85rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .focus li:first-child { padding-top: 0; }
+  .focus li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .focus li :global(svg) { color: var(--purple); flex: none; }
+
+  .scroll {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray);
+    text-decoration: none;
+  }
+  .scroll:hover { color: var(--purple-deep); }
+  .scroll-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px var(--rule-strong);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .line > span {
+      animation: rise 1000ms var(--ease) both;
+      animation-delay: calc(100ms + var(--i) * 120ms);
+    }
+    .lower { animation: fade 900ms var(--ease) 420ms both; }
+    .scroll-icon :global(svg) { animation: nudge 2.4s ease-in-out 1.6s 3; }
+    @keyframes rise { from { transform: translateY(102%); } }
+    @keyframes fade { from { opacity: 0; transform: translateY(12px); } }
+    @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+  }
+
+  @media (max-width: 55.99rem) {
+    .intro, .focus { grid-column: 1 / -1; }
+    .focus li { font-size: 1rem; }
+  }
+  @media (max-width: 39.99rem) {
+    .inner { min-height: 0; }
+    .ctas .btn { flex: 1 1 100%; }
+  }
+</style>

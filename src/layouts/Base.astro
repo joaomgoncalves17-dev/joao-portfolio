@@ -1,11 +1,24 @@
 ---
 import "../styles/global.css";
 import { useT, homeHref, type Lang } from "../i18n/ui";
+import fontUrl from "@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useT(lang);
 const site = Astro.site ?? new URL("https://example.com");
+const url = new URL(homeHref(lang), site);
+const ogImage = new URL("/og.png", site);
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "João Gonçalves",
+  url: url.href,
+  description: t("meta.description"),
+  address: { "@type": "PostalAddress", addressCountry: "PT" },
+  knowsAbout: ["Systems administration", "Networking", "Cloud infrastructure", "Software development"],
+};
 ---
 <!doctype html>
 <html lang={lang === "pt" ? "pt-PT" : "en"}>
@@ -14,18 +27,34 @@ const site = Astro.site ?? new URL("https://example.com");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{t("meta.title")}</title>
     <meta name="description" content={t("meta.description")} />
-    <meta name="theme-color" content="#f8f9fc" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#161a26" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf8f5" />
+    <meta name="color-scheme" content="light" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={new URL(homeHref(lang), site)} />
+    <link rel="preload" as="font" type="font/woff2" href={fontUrl} crossorigin />
+    <link rel="canonical" href={url} />
     <link rel="alternate" hreflang="en" href={new URL("/", site)} />
     <link rel="alternate" hreflang="pt" href={new URL("/pt/", site)} />
     <link rel="alternate" hreflang="x-default" href={new URL("/", site)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="João Gonçalves" />
     <meta property="og:title" content={t("meta.title")} />
     <meta property="og:description" content={t("meta.description")} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t("meta.title")} />
     <meta property="og:locale" content={lang === "pt" ? "pt_PT" : "en_GB"} />
+    <meta property="og:locale:alternate" content={lang === "pt" ? "en_GB" : "pt_PT"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t("meta.title")} />
+    <meta name="twitter:description" content={t("meta.description")} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
-  <body class="min-h-dvh">
+  <body>
     <a href="#main" class="skip">{t("nav.skip")}</a>
     <slot />
   </body>
@@ -33,15 +62,17 @@ const site = Astro.site ?? new URL("https://example.com");
 
 <style>
   .skip {
-    position: absolute;
+    position: fixed;
     left: 1rem;
     top: -4rem;
-    z-index: 30;
-    padding: 0.5rem 0.9rem;
-    border-radius: var(--radius-ui);
-    background: var(--copper);
-    color: var(--on-copper);
-    font-weight: 600;
+    z-index: 50;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 650;
+    text-decoration: none;
+    transition: top 160ms var(--ease);
   }
   .skip:focus { top: 0.75rem; }
 </style>

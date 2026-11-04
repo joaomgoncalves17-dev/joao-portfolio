@@ -1,0 +1,74 @@
+---
+import { about } from "../data/content";
+import { useT, pick, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section id="about" class="section" aria-labelledby="about-title">
+  <div class="wrap grid">
+    <h2 id="about-title" class="h2 title">{t("about.title")}</h2>
+
+    <p class="lead">{pick(about.lead, lang)}</p>
+
+    <div class="body">
+      {about.body.map((p) => <p>{pick(p, lang)}</p>)}
+    </div>
+
+    <dl class="facts">
+      {about.facts.map((f) => (
+        <div>
+          <dt>{pick(f.label, lang)}</dt>
+          <dd>{pick(f.value, lang)}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2.5vw, 2rem);
+    row-gap: clamp(2rem, 4vw, 3.5rem);
+  }
+  .title { grid-column: 1 / span 4; }
+  .lead {
+    grid-column: 5 / -1;
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    max-width: 30ch;
+  }
+  .body {
+    grid-column: 5 / span 5;
+    display: grid;
+    align-content: start;
+    gap: 1.25rem;
+    font-size: 1.075rem;
+    color: var(--gray);
+    max-width: 62ch;
+  }
+  .facts {
+    grid-column: 10 / -1;
+    align-self: start;
+    border-top: 2px solid var(--purple);
+  }
+  .facts > div { padding-block: 0.9rem; border-bottom: 1px solid var(--rule); }
+  dt { font-size: 0.85rem; font-weight: 650; color: var(--purple-deep); }
+  dd { margin-top: 0.15rem; font-weight: 550; line-height: 1.4; }
+
+  @media (max-width: 63.99rem) {
+    .title { grid-column: 1 / -1; }
+    .lead { grid-column: 1 / -1; }
+    .body { grid-column: 1 / span 7; }
+    .facts { grid-column: 9 / -1; }
+  }
+  @media (max-width: 47.99rem) {
+    .body, .facts { grid-column: 1 / -1; }
+  }
+</style>

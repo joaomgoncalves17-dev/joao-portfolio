@@ -1,92 +1,105 @@
 ---
-/** The page closes on the physical layer: the actual wire to João. */
 import { Icon } from "astro-icon/components";
-import Text from "./Text.astro";
 import MaybeLink from "./MaybeLink.astro";
-import { contact, osi, isTodo } from "../data/content";
-import { useT, pick, homeHref, type Lang } from "../i18n/ui";
+import { contact, isTodo, type Todo } from "../data/content";
+import { useT, pick, type Lang, type UIKey } from "../i18n/ui";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useT(lang);
-const l1 = osi.find((l) => l.n === 1)!;
-const other: Lang = lang === "en" ? "pt" : "en";
+
+const rows: { key: UIKey; icon: string; value: string | Todo; href: (v: string) => string; external: boolean }[] = [
+  { key: "contact.email", icon: "lucide:mail", value: contact.email, href: (v) => `mailto:${v}`, external: false },
+  { key: "contact.github", icon: "lucide:github", value: contact.github, href: (v) => v, external: true },
+  { key: "contact.linkedin", icon: "lucide:linkedin", value: contact.linkedin, href: (v) => v, external: true },
+];
+const display = (v: string) => v.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 ---
-<footer id="contact" class="close" aria-labelledby="contact-title">
-  <div class="inner">
-    <p class="label"><span class="num wide tabular">1</span> {pick(l1.name, lang)}</p>
-    <div class="content">
-      <h2 id="contact-title" class="h2 wide">{t("contact.title")}</h2>
+<section id="contact" class="contact" aria-labelledby="contact-title">
+  <div class="wrap grid">
+    <div class="head">
+      <h2 id="contact-title" class="title">{t("contact.title")}</h2>
       <p class="sub">{t("contact.sub")}</p>
-      <p class="email semi-wide">
-        {isTodo(contact.email)
-          ? <Text value={contact.email} lang={lang} />
-          : <a href={`mailto:${contact.email}`}>{contact.email}</a>}
-      </p>
-      <ul class="links">
-        <li>
-          <Icon name="ph:linkedin-logo" size={20} aria-hidden="true" />
-          <MaybeLink href={contact.linkedin} external>LinkedIn</MaybeLink>
-        </li>
-        <li>
-          <Icon name="ph:github-logo" size={20} aria-hidden="true" />
-          <MaybeLink href={contact.github} external>GitHub</MaybeLink>
-        </li>
-        <li>
-          <Icon name="ph:download-simple" size={20} aria-hidden="true" />
-          <MaybeLink href={contact.cv} download>{t("cta.cv")}</MaybeLink>
-        </li>
-      </ul>
+      <MaybeLink href={contact.cv} class="btn btn-gold cv" download>
+        <Icon name="lucide:download" size={18} aria-hidden="true" />
+        {t("contact.cvButton")}
+      </MaybeLink>
+      {isTodo(contact.cv) && <p class="note">{pick(contact.cv.todo, lang)}</p>}
     </div>
-    <div class="base">
-      <p>© {new Date().getFullYear()} {t("footer.rights")}</p>
-      <a href={homeHref(other)} hreflang={other} aria-label={t("nav.switchLabel")}>{t("nav.switch")}</a>
-    </div>
+
+    <ul class="rows">
+      {rows.map((r) => (
+        <li>
+          <MaybeLink href={isTodo(r.value) ? r.value : r.href(r.value)} class="row" external={r.external}>
+            <Icon name={r.icon} size={22} aria-hidden="true" class="r-icon" />
+            <span class="r-label">{t(r.key)}</span>
+            <span class="r-value">{isTodo(r.value) ? pick(r.value.todo, lang) : display(r.value)}</span>
+            {!isTodo(r.value) && <Icon name="lucide:arrow-up-right" size={20} aria-hidden="true" class="r-go" />}
+          </MaybeLink>
+        </li>
+      ))}
+    </ul>
   </div>
-</footer>
+</section>
+
 
 <style>
-  .close { background: var(--l1); color: var(--on-dark-band); }
-  .inner {
-    display: grid;
-    grid-template-columns: 10.5rem minmax(0, 1fr);
-    column-gap: clamp(1rem, 3vw, 3rem);
-    max-width: 90rem;
-    margin-inline: auto;
-    padding: clamp(4.5rem, 9vw, 7.5rem) clamp(1rem, 3vw, 2.5rem) 2rem;
+  .contact {
+    background: var(--purple);
+    color: var(--white);
+    padding-block: clamp(5rem, 11vw, 8.5rem);
   }
-  .label {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    font-size: 0.85rem;
-    color: color-mix(in oklch, var(--on-dark-band) 82%, var(--l1));
-    padding-top: 0.6rem;
-  }
-  .num { font-size: 1.35rem; font-weight: 700; }
-  .content { display: grid; gap: 1rem; }
-  .h2 { font-size: clamp(1.75rem, 3.4vw, 3rem); font-weight: 750; letter-spacing: -0.02em; max-width: 26ch; }
-  .sub { color: color-mix(in oklch, var(--on-dark-band) 82%, var(--l1)); }
-  .email { font-size: clamp(1.3rem, 2.6vw, 2rem); font-weight: 700; margin-top: 0.75rem; }
-  .email a { color: var(--copper); }
-  .links { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin-top: 0.5rem; }
-  .links li { display: inline-flex; align-items: center; gap: 0.5rem; }
-  .links a { color: inherit; }
-  .base {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: clamp(4rem, 8vw, 6rem);
-    padding-top: 1.25rem;
-    border-top: 1px solid color-mix(in oklch, var(--on-dark-band) 22%, var(--l1));
-    font-size: 0.9rem;
-    color: color-mix(in oklch, var(--on-dark-band) 82%, var(--l1));
-  }
-  .base a { color: inherit; font-weight: 650; }
+  .contact ::selection { background: var(--gold); color: var(--ink); }
+  .contact :focus-visible { outline-color: var(--gold); }
 
-  @media (max-width: 47.99rem) {
-    .inner { grid-template-columns: 1fr; row-gap: 1.25rem; }
-    .label { padding-top: 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2.5vw, 2rem);
+    row-gap: 3rem;
+    align-items: start;
+  }
+  .head { grid-column: 1 / span 6; display: grid; justify-items: start; gap: 1.5rem; }
+  .title {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  .sub { font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.5; max-width: 32rem; }
+  .cv { margin-top: 0.5rem; }
+  .cv[aria-disabled="true"] {
+    background: transparent;
+    color: var(--white);
+    box-shadow: none;
+    border: 1.5px dashed rgb(255 255 255 / 0.7);
+  }
+  .note { font-size: 0.9rem; font-style: italic; margin-top: -0.75rem; }
+
+  .rows { grid-column: 8 / -1; border-top: 1px solid rgb(255 255 255 / 0.45); }
+  .rows li { border-bottom: 1px solid rgb(255 255 255 / 0.45); }
+  .rows :global(.row) {
+    display: grid;
+    grid-template-columns: auto 6rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    min-height: 4.25rem;
+    padding-block: 0.75rem;
+    text-decoration: none;
+  }
+  .rows :global(.r-icon), .rows :global(.r-go) { transition: transform 260ms var(--ease); }
+  .rows :global(a.row:hover .r-icon) { transform: translateX(4px); }
+  .rows :global(a.row:hover .r-go) { transform: translate(3px, -3px); }
+  .rows :global(a.row:hover .r-value) { text-decoration: underline; }
+  .r-label { font-weight: 700; font-size: 1.1rem; }
+  .r-value { font-size: 1rem; overflow-wrap: anywhere; }
+  .rows :global(span.row .r-value) { font-style: italic; }
+
+  @media (max-width: 63.99rem) {
+    .head, .rows { grid-column: 1 / -1; }
+  }
+  @media (max-width: 39.99rem) {
+    .rows :global(.row) { grid-template-columns: auto minmax(0, 1fr); row-gap: 0.15rem; }
+    .r-value { grid-column: 2; }
   }
 </style>
