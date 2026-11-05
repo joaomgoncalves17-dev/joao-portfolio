@@ -101,11 +101,12 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     icon: "ph:stack",
-    name: { en: "Virtualization", pt: "Virtualização" },
+    name: { en: "Virtualization & cloud", pt: "Virtualização e cloud" },
     items: [
       { name: "KVM / virt-manager", level: "hands-on" },
       { name: "VirtualBox", level: "hands-on" },
       { name: "Proxmox VE", level: "hands-on" },
+      { name: "Microsoft Azure", level: "learning" },
     ],
   },
   {
@@ -125,6 +126,7 @@ export const skillGroups: SkillGroup[] = [
     items: [
       { name: "HTML / CSS", level: "hands-on" },
       { name: "JavaScript", level: "hands-on" },
+      { name: "TypeScript", level: "hands-on" },
       { name: "Node.js / Express", level: "hands-on" },
       { name: "React", level: "hands-on" },
       { name: "SQL", level: "hands-on" },
