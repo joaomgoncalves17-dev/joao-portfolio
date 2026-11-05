@@ -50,7 +50,7 @@ export const ui = {
     "edu.status.in-progress": "In progress",
     "edu.status.completed": "Completed",
     "edu.courses": "Completed courses",
-    "edu.credential": "View credential",
+    "edu.credential": "View certificate",
     "contact.title": "Let’s connect",
     "contact.sub":
       "Recruiters, collaborators and people working in technology: I’d be glad to hear from you.",
@@ -107,7 +107,7 @@ export const ui = {
     "edu.status.in-progress": "Em curso",
     "edu.status.completed": "Concluído",
     "edu.courses": "Cursos concluídos",
-    "edu.credential": "Ver credencial",
+    "edu.credential": "Ver certificado",
     "contact.title": "Vamos falar",
     "contact.sub":
       "Recrutadores, colaboradores e profissionais de tecnologia: terei todo o gosto em ouvir-vos.",

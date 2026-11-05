@@ -193,6 +193,7 @@
   }
   .stamp-ochre { background: var(--ochre); color: var(--on-ochre); }
   .stamp-cobalt { background: var(--wash); color: var(--cobalt); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cobalt) 35%, transparent); }
+  .stamp-solid { background: var(--cobalt-strong); color: var(--on-cobalt); }
   .stamp-quiet { color: var(--slate); box-shadow: inset 0 0 0 1px var(--rule-strong); }
 
   /* Network tile. The wrapper holds the quarter-turn; the svg is free for entrances. */

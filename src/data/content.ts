@@ -226,10 +226,15 @@ export const education: EducationItem[] = [
     kind: { en: "Professional certificate", pt: "Certificado profissional" },
     title: { en: "Google IT Support", pt: "Google IT Support" },
     institution: "Google",
-    status: "in-progress",
+    status: "completed",
     courses: [
       { name: "Technical Support Fundamentals", status: "completed" },
       { name: "The Bits and Bytes of Computer Networking", status: "completed" },
+      { name: "Operating Systems and You: Becoming a Power User", status: "completed" },
+      { name: "System Administration and IT Infrastructure Services", status: "completed" },
+      { name: "IT Security: Defense against the digital dark arts", status: "completed" },
     ],
+    /** Paste the public certificate URL here (Coursera or Credly). */
+    credential: "https://coursera.org/share/517fa94d746518f4708e589c5a3eeab3",
   },
 ];
