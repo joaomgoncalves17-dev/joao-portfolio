@@ -20,13 +20,13 @@ export const contact: {
   email: string | Todo;
   github: string | Todo;
   linkedin: string | Todo;
-  /** Put the PDF in /public/cv/ and set the path, e.g. "/cv/joao-goncalves-cv.pdf". */
+  /** Path to the PDF in /public/cv/. */
   cv: string | Todo;
 } = {
   email: "joaomgoncalves17@gmail.com",
   github: "https://github.com/joaomgoncalves17-dev",
   linkedin: "https://www.linkedin.com/in/jo%C3%A3o-gon%C3%A7alves-b8337b2a8/",
-  cv: todo("CV to be added", "CV a adicionar"),
+  cv: "/cv/CV_Joao_Goncalves.pdf",
 };
 
 /* ------------------------------------------------------------------ */
