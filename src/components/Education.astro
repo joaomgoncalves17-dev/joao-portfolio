@@ -31,7 +31,9 @@ const badge = { studying: "stamp-cobalt", "in-progress": "stamp-ochre", complete
             <span>{pick(e.kind, lang)}</span>
             <span class="sep" aria-hidden="true">/</span>
             <span>{pick(e.institution, lang)}</span>
+            {e.period && <><span class="sep" aria-hidden="true">/</span><span class="tabular">{pick(e.period, lang)}</span></>}
           </p>
+          {e.note && <p class="note">{pick(e.note, lang)}</p>}
 
           {e.courses && e.courses.length > 0 && (
             <div class="courses">
@@ -141,6 +143,7 @@ const badge = { studying: "stamp-cobalt", "in-progress": "stamp-ochre", complete
   }
   .meta { display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; color: var(--slate); font-size: 1.02rem; }
   .sep { color: var(--rule-strong); }
+  .note { font-size: 0.98rem; color: var(--ink); }
 
   .courses {
     margin-top: 0.75rem;

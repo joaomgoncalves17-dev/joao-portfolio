@@ -1,0 +1,91 @@
+---
+/** Work history as a ledger: dates in the margin, one painted tile per entry. */
+import Tile from "./Tile.astro";
+import { experience } from "../data/content";
+import { useT, pick, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section id="experience" class="section exp" aria-labelledby="exp-title">
+  <div class="wrap grid">
+    <div class="head">
+      <h2 id="exp-title" class="h2">{t("exp.title")}</h2>
+      <p class="lede">{t("exp.intro")}</p>
+    </div>
+
+    <ol class="jobs">
+      {experience.map((j, i) => (
+        <li class="job reveal">
+          <p class="period tabular">{pick(j.period, lang)}</p>
+          <div class="body">
+            <Tile r={i % 4} class="jt" />
+            <div>
+              <h3 class="role">
+                {pick(j.role, lang)}
+                <span class="company" translate="no">{j.company}</span>
+              </h3>
+              {j.place && <p class="place">{pick(j.place, lang)}</p>}
+              <p class="summary">{pick(j.summary, lang)}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .exp { background: var(--surface); box-shadow: inset 0 1px 0 var(--rule), inset 0 -1px 0 var(--rule); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    row-gap: 2.5rem;
+  }
+  .head { grid-column: 1 / span 4; display: grid; align-content: start; gap: 1rem; }
+  .jobs { grid-column: 5 / -1; }
+
+  .job {
+    display: grid;
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    gap: 0.5rem var(--gutter);
+    padding-block: 1.6rem;
+    border-top: 1px solid var(--rule);
+  }
+  .job:first-child { border-top: 2px solid var(--cobalt); }
+  .period {
+    padding-top: 0.3rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    font-stretch: 112%;
+    color: var(--cobalt);
+    white-space: nowrap;
+  }
+  .body { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 1.1rem; align-items: start; }
+  .body :global(.jt) { width: 2.25rem; box-shadow: 0 0 0 2px var(--grout); border-radius: 2px; }
+  .job:hover .body :global(.jt) { transform: rotate(calc((var(--r) + 1) * 90deg)); }
+  .role {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15rem 0.6rem;
+    font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+    font-weight: 780;
+    font-stretch: 110%;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .company { font-weight: 560; font-stretch: 100%; color: var(--slate); }
+  .place { margin-top: 0.3rem; font-size: 0.92rem; color: var(--slate); }
+  .summary { margin-top: 0.6rem; max-width: 60ch; }
+
+  @media (max-width: 63.99rem) {
+    .head, .jobs { grid-column: 1 / -1; }
+  }
+  @media (max-width: 39.99rem) {
+    .job { grid-template-columns: minmax(0, 1fr); }
+    .period { padding-top: 0; }
+  }
+</style>

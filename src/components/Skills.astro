@@ -7,6 +7,7 @@ import { useT, pick, type Lang } from "../i18n/ui";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useT(lang);
+const anyLearning = skillGroups.some((g) => g.items.some((s) => s.level === "learning"));
 ---
 <section id="skills" class="skills" aria-labelledby="skills-title">
   <Frieze />
@@ -14,10 +15,12 @@ const t = useT(lang);
     <div class="head">
       <h2 id="skills-title" class="h2">{t("skills.title")}</h2>
       <p class="lede">{t("skills.intro")}</p>
-      <p class="legend">
-        <span class="stamp stamp-ochre">{t("skills.learning")}</span>
-        <span>{t("skills.legend")}</span>
-      </p>
+      {anyLearning && (
+        <p class="legend">
+          <span class="stamp stamp-ochre">{t("skills.learning")}</span>
+          <span>{t("skills.legend")}</span>
+        </p>
+      )}
     </div>
 
     <div class="groups">

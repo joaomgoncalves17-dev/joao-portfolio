@@ -18,7 +18,7 @@ const assetIcon: Record<AssetKind, string> = {
   diagram: "ph:tree-structure",
   screenshots: "ph:image",
 };
-const statusClass = { "in-progress": "stamp-ochre", "under-construction": "stamp-ochre", completed: "stamp-cobalt" } as const;
+const statusClass = { "in-progress": "stamp-ochre", "under-construction": "stamp-ochre", completed: "stamp-cobalt", live: "stamp-solid" } as const;
 // A 3x3 field per project; the centre is the project's figure tile.
 const field = (seed: number) =>
   Array.from({ length: 8 }, (_, i) => Math.floor(Math.abs(Math.sin((i + 1) * 7.31 + seed * 3.7)) * 4));

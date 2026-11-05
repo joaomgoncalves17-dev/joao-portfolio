@@ -50,34 +50,37 @@ export const about: {
   facts: { label: L; value: L }[];
 } = {
   lead: {
-    en: "I’m João, a Computer Engineering student in Portugal working towards a career in IT infrastructure.",
-    pt: "Sou o João, estudante de Engenharia Informática em Portugal, a construir uma carreira em infraestrutura de TI.",
+    en: "I’m João, a Computer Engineering student in Portugal looking for an internship or first role in systems or software.",
+    pt: "Sou o João, estudante de Engenharia Informática em Portugal, à procura de estágio ou primeira posição em sistemas ou software.",
   },
   body: [
     {
-      en: "I’m interested in how systems fit together: servers, networks, cloud platforms and the software that runs on them. Alongside my degree, I’m completing a Level 5 qualification in Computer Networks and Systems Management.",
-      pt: "Interessa-me perceber como os sistemas encaixam: servidores, redes, plataformas cloud e o software que corre sobre eles. Em paralelo com a licenciatura, estou a concluir uma qualificação de nível 5 em Gestão de Redes e Sistemas Informáticos.",
+      en: "I focus on Windows and Linux systems administration and on web development, with a growing interest in cloud and cybersecurity. I’m taking a Level 5 Computer Networks and Systems Technician course at IEFP alongside my degree at IPVC.",
+      pt: "Foco-me em administração de sistemas Windows e Linux e em desenvolvimento web, com interesse crescente em cloud e cibersegurança. Frequento o curso de Técnico de Redes e Sistemas Informáticos (nível 5) no IEFP em paralelo com a licenciatura no IPVC.",
     },
     {
-      en: "I enjoy learning through hands-on technical projects, and I’m building practical experience in a personal homelab with Windows Server, Linux, Active Directory, DNS and DHCP.",
-      pt: "Gosto de aprender através de projetos técnicos práticos e estou a ganhar experiência num homelab pessoal com Windows Server, Linux, Active Directory, DNS e DHCP.",
+      en: "I also bring more than two years of customer-facing work. It taught me to solve problems calmly and to explain technical solutions in plain terms.",
+      pt: "Trago também mais de dois anos de experiência em atendimento ao cliente. Habituei-me a resolver problemas com calma e a explicar soluções técnicas de forma simples.",
     },
   ],
   facts: [
-    { label: { en: "Based in", pt: "Localização" }, value: { en: "Portugal", pt: "Portugal" } },
+    { label: { en: "Based in", pt: "Localização" }, value: { en: "Viana do Castelo, Portugal", pt: "Viana do Castelo, Portugal" } },
     { label: { en: "Studying", pt: "Licenciatura" }, value: { en: "Computer Engineering, IPVC", pt: "Engenharia Informática, IPVC" } },
     {
       label: { en: "Training", pt: "Formação" },
-      value: { en: "Level 5, Computer Networks and Systems Management, IEFP", pt: "Nível 5, Gestão de Redes e Sistemas Informáticos, IEFP" },
+      value: { en: "Networks and Systems Technician, IEFP", pt: "Técnico de Redes e Sistemas, IEFP" },
     },
-    { label: { en: "Practising", pt: "Prática" }, value: { en: "Personal homelab", pt: "Homelab pessoal" } },
+    {
+      label: { en: "Languages", pt: "Línguas" },
+      value: { en: "Portuguese, English (C1–C2), Spanish (A2)", pt: "Português, Inglês (C1–C2), Espanhol (A2)" },
+    },
+    { label: { en: "Driving licence", pt: "Carta de condução" }, value: { en: "Category B, own car", pt: "Categoria B, viatura própria" } },
   ],
 };
 
 /* ------------------------------------------------------------------ */
 /* Skills                                                              */
-/* "hands-on" = used in practice; "learning" = currently learning.     */
-/* Only Azure was stated as learning; adjust the others if needed.     */
+/* Mirrors the technical skills on the CV. "learning" adds a stamp.     */
 /* ------------------------------------------------------------------ */
 
 export type SkillLevel = "hands-on" | "learning";
@@ -86,14 +89,23 @@ export type SkillGroup = { icon: string; name: L; items: { name: L | string; lev
 export const skillGroups: SkillGroup[] = [
   {
     icon: "ph:hard-drives",
-    name: { en: "Systems & Infrastructure", pt: "Sistemas e Infraestrutura" },
+    name: { en: "Systems", pt: "Sistemas" },
     items: [
       { name: "Windows Server", level: "hands-on" },
-      { name: "Linux", level: "hands-on" },
       { name: "Active Directory", level: "hands-on" },
-      { name: { en: "DNS and DHCP", pt: "DNS e DHCP" }, level: "hands-on" },
-      { name: { en: "Virtualization", pt: "Virtualização" }, level: "hands-on" },
-      { name: { en: "System Administration", pt: "Administração de Sistemas" }, level: "hands-on" },
+      { name: "Windows 11", level: "hands-on" },
+      { name: "Linux", level: "hands-on" },
+      { name: "Ubuntu Server", level: "hands-on" },
+      { name: "Fedora", level: "hands-on" },
+    ],
+  },
+  {
+    icon: "ph:stack",
+    name: { en: "Virtualization", pt: "Virtualização" },
+    items: [
+      { name: "KVM / virt-manager", level: "hands-on" },
+      { name: "VirtualBox", level: "hands-on" },
+      { name: "Proxmox VE", level: "hands-on" },
     ],
   },
   {
@@ -101,30 +113,24 @@ export const skillGroups: SkillGroup[] = [
     name: { en: "Networking", pt: "Redes" },
     items: [
       { name: "TCP/IP", level: "hands-on" },
-      { name: { en: "Network Troubleshooting", pt: "Resolução de problemas de rede" }, level: "hands-on" },
-      { name: { en: "Network Configuration", pt: "Configuração de redes" }, level: "hands-on" },
-      { name: { en: "Network Fundamentals", pt: "Fundamentos de redes" }, level: "hands-on" },
-    ],
-  },
-  {
-    icon: "ph:cloud",
-    name: { en: "Cloud & Tools", pt: "Cloud e Ferramentas" },
-    items: [
-      { name: "Microsoft Azure", level: "learning" },
-      { name: "VirtualBox", level: "hands-on" },
-      { name: { en: "Git and GitHub", pt: "Git e GitHub" }, level: "hands-on" },
-      { name: "VS Code", level: "hands-on" },
+      { name: { en: "IP addressing", pt: "Endereçamento IP" }, level: "hands-on" },
+      { name: "PowerShell", level: "hands-on" },
+      { name: "WinRM", level: "hands-on" },
+      { name: "Troubleshooting", level: "hands-on" },
     ],
   },
   {
     icon: "ph:code",
     name: { en: "Development", pt: "Desenvolvimento" },
     items: [
-      { name: "Python", level: "hands-on" },
-      { name: "C#", level: "hands-on" },
+      { name: "HTML / CSS", level: "hands-on" },
       { name: "JavaScript", level: "hands-on" },
-      { name: "TypeScript", level: "hands-on" },
-      { name: { en: "HTML and CSS", pt: "HTML e CSS" }, level: "hands-on" },
+      { name: "Node.js / Express", level: "hands-on" },
+      { name: "React", level: "hands-on" },
+      { name: "SQL", level: "hands-on" },
+      { name: "PostgreSQL", level: "hands-on" },
+      { name: "MySQL", level: "hands-on" },
+      { name: "Git / GitHub", level: "hands-on" },
     ],
   },
 ];
@@ -133,7 +139,7 @@ export const skillGroups: SkillGroup[] = [
 /* Projects                                                            */
 /* ------------------------------------------------------------------ */
 
-export type ProjectStatus = "in-progress" | "under-construction" | "completed";
+export type ProjectStatus = "in-progress" | "under-construction" | "completed" | "live";
 export type AssetKind = "repo" | "docs" | "diagram" | "screenshots";
 
 export type Project = {
@@ -171,24 +177,52 @@ export const projects: Project[] = [
     image: null,
   },
   {
-    id: "iefp-infrastructure",
-    icon: "ph:network",
-    title: { en: "IEFP+ Infrastructure Project", pt: "Projeto de Infraestrutura IEFP+" },
-    status: "under-construction",
+    id: "limatech",
+    icon: "ph:cloud",
+    title: { en: "Hybrid Linux + cloud infrastructure: LimaTech", pt: "Infraestrutura híbrida Linux + cloud: LimaTech" },
+    status: "in-progress",
     summary: {
-      en: "A comprehensive technical project developed as part of my Level 5 training in Computer Networks and Systems.",
-      pt: "Um projeto técnico abrangente, desenvolvido no âmbito da minha formação de nível 5 em Redes e Sistemas Informáticos.",
+      en: "IT infrastructure for a simulated company, built for the IEFP Networks and Systems course: Linux servers connected to the cloud, with routine tasks automated in Python.",
+      pt: "Infraestrutura de TI para uma empresa simulada, desenvolvida no curso de Redes e Sistemas do IEFP: servidores Linux ligados à cloud e automação de tarefas em Python.",
     },
-    topics: [
-      { en: "Computer networks", pt: "Redes informáticas" },
-      { en: "Systems management", pt: "Gestão de sistemas" },
-    ],
+    topics: ["Linux", "Cloud", "Python", { en: "Automation", pt: "Automação" }],
     assets: [
       { kind: "repo", href: pending() },
       { kind: "docs", href: pending() },
       { kind: "diagram", href: pending() },
+    ],
+    image: null,
+  },
+  {
+    id: "iefp-plus",
+    icon: "ph:calendar-dots",
+    title: { en: "IEFP+: web app for trainees", pt: "IEFP+: web app para formandos" },
+    status: "in-progress",
+    summary: {
+      en: "A team project of four: class timetables, lunch options and a noticeboard where trainees from different courses can post practical-work requests.",
+      pt: "Projeto de equipa de quatro pessoas: horários das turmas, opções de almoço e um quadro de anúncios para trabalhos práticos entre cursos.",
+    },
+    topics: [
+      { en: "Web development", pt: "Desenvolvimento web" },
+      { en: "Team of 4", pt: "Equipa de 4" },
+    ],
+    assets: [
+      { kind: "repo", href: pending() },
       { kind: "screenshots", href: pending() },
     ],
+    image: null,
+  },
+  {
+    id: "portfolio",
+    icon: "ph:browser",
+    title: { en: "Personal portfolio", pt: "Site pessoal / portefólio" },
+    status: "live",
+    summary: {
+      en: "This site: a bilingual static portfolio, hosted on Vercel and deployed on every push.",
+      pt: "Este site: um portefólio estático bilingue, alojado na Vercel e publicado a cada push.",
+    },
+    topics: ["Astro", "TypeScript", "CSS", "Vercel"],
+    assets: [{ kind: "repo", href: "https://github.com/joaomgoncalves17-dev/joao-portfolio" }],
     image: null,
   },
 ];
@@ -204,6 +238,10 @@ export type EducationItem = {
   title: L;
   institution: L | string;
   status: EducationStatus;
+  /** Optional dates or year, shown after the institution. */
+  period?: L;
+  /** Optional one-line note. */
+  note?: L;
   /** Optional: individual courses (for multi-course certificates). */
   courses?: { name: string; status: "completed" | "in-progress" }[];
   credential?: string | Todo;
@@ -211,21 +249,24 @@ export type EducationItem = {
 
 export const education: EducationItem[] = [
   {
+    kind: { en: "CET, Level 5", pt: "CET, nível 5" },
+    title: { en: "Computer Networks and Systems Technician", pt: "Técnico de Redes e Sistemas Informáticos" },
+    institution: "IEFP",
+    status: "studying",
+    period: { en: "Sep 2026 – Sep 2027", pt: "set 2026 – set 2027" },
+    note: { en: "Includes an internship from January 2027.", pt: "Inclui estágio a partir de janeiro de 2027." },
+  },
+  {
     kind: { en: "Bachelor’s degree", pt: "Licenciatura" },
     title: { en: "Computer Engineering", pt: "Engenharia Informática" },
     institution: "Instituto Politécnico de Viana do Castelo (IPVC)",
     status: "studying",
-  },
-  {
-    kind: { en: "Level 5 professional qualification", pt: "Qualificação profissional de nível 5" },
-    title: { en: "Computer Networks and Systems Management", pt: "Gestão de Redes e Sistemas Informáticos" },
-    institution: "IEFP",
-    status: "studying",
+    period: { en: "1st year, 2026/27", pt: "1.º ano, 2026/27" },
   },
   {
     kind: { en: "Professional certificate", pt: "Certificado profissional" },
     title: { en: "Google IT Support", pt: "Google IT Support" },
-    institution: "Google",
+    institution: "Google · Coursera",
     status: "completed",
     courses: [
       { name: "Technical Support Fundamentals", status: "completed" },
@@ -234,7 +275,50 @@ export const education: EducationItem[] = [
       { name: "System Administration and IT Infrastructure Services", status: "completed" },
       { name: "IT Security: Defense against the digital dark arts", status: "completed" },
     ],
-    /** Paste the public certificate URL here (Coursera or Credly). */
     credential: "https://coursera.org/share/517fa94d746518f4708e589c5a3eeab3",
+  },
+  {
+    kind: { en: "Secondary education", pt: "Ensino secundário" },
+    title: { en: "12th grade", pt: "12.º ano" },
+    institution: { en: "Completed", pt: "Concluído" },
+    status: "completed",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Work experience, most recent first                                  */
+/* ------------------------------------------------------------------ */
+
+export type Job = { role: L; company: string; period: L; place?: L; summary: L };
+
+export const experience: Job[] = [
+  {
+    role: { en: "Sales Assistant", pt: "Assistente de Vendas" },
+    company: "Rádio Popular",
+    period: { en: "Jul 2026 – Sep 2026", pt: "jul 2026 – set 2026" },
+    place: { en: "Viana do Castelo · full-time", pt: "Viana do Castelo · tempo inteiro" },
+    summary: {
+      en: "Advised customers on electronics and computer equipment, and gave informal IT help beyond the role.",
+      pt: "Aconselhamento de clientes em equipamentos de eletrónica e informática, e apoio informático informal para além das funções.",
+    },
+  },
+  {
+    role: { en: "Customer Service Assistant", pt: "Customer Service Assistant" },
+    company: "McDonald’s",
+    period: { en: "Mar 2025 – Jul 2026", pt: "mar 2025 – jul 2026" },
+    place: { en: "Viana do Castelo · part-time", pt: "Viana do Castelo · part-time" },
+    summary: {
+      en: "Front-line service in a high-pressure environment: teamwork and handling complaints.",
+      pt: "Atendimento ao público em ambiente de alta pressão, trabalho em equipa e resolução de reclamações.",
+    },
+  },
+  {
+    role: { en: "Activities Monitor", pt: "Monitor de Atividades" },
+    company: "EB1 Ponte de Lima",
+    period: { en: "Apr 2022 – Sep 2024", pt: "abr 2022 – set 2024" },
+    summary: {
+      en: "Looked after and supervised children during school activities.",
+      pt: "Acompanhamento e supervisão de crianças em atividades escolares.",
+    },
   },
 ];
