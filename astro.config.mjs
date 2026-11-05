@@ -5,7 +5,7 @@ import icon from "astro-icon";
 
 export default defineConfig({
   // TODO: set to the real domain once chosen (used for canonical + hreflang URLs).
-  site: "https://example.com",
+  site: "https://joao-portfolio-virid.vercel.app",
   integrations: [icon()],
   i18n: {
     locales: ["en", "pt"],
