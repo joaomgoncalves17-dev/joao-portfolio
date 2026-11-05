@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { useT, homeHref, type Lang } from "../i18n/ui";
 import TileSprite from "../components/TileSprite.astro";
+import { contact, isTodo } from "../data/content";
 import fontUrl from "@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2?url";
 
 interface Props { lang: Lang }
@@ -19,6 +20,8 @@ const person = {
   description: t("meta.description"),
   address: { "@type": "PostalAddress", addressCountry: "PT" },
   knowsAbout: ["Systems administration", "Networking", "Cloud infrastructure", "Software development"],
+  ...(isTodo(contact.email) ? {} : { email: `mailto:${contact.email}` }),
+  sameAs: [contact.github, contact.linkedin].filter((v): v is string => !isTodo(v)),
 };
 ---
 <!doctype html>

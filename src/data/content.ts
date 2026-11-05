@@ -23,9 +23,9 @@ export const contact: {
   /** Put the PDF in /public/cv/ and set the path, e.g. "/cv/joao-goncalves-cv.pdf". */
   cv: string | Todo;
 } = {
-  email: todo("Email address to be added", "Email a adicionar"),
-  github: todo("GitHub profile to be added", "Perfil do GitHub a adicionar"),
-  linkedin: todo("LinkedIn profile to be added", "Perfil do LinkedIn a adicionar"),
+  email: "joaomgoncalves17@gmail.com",
+  github: "https://github.com/joaomgoncalves17-dev",
+  linkedin: "https://www.linkedin.com/in/jo%C3%A3o-gon%C3%A7alves-b8337b2a8/",
   cv: todo("CV to be added", "CV a adicionar"),
 };
 

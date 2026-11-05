@@ -14,7 +14,7 @@ const rows: { key: UIKey; icon: string; value: string | Todo; href: (v: string) 
   { key: "contact.github", icon: "ph:github-logo", value: contact.github, href: (v) => v, external: true },
   { key: "contact.linkedin", icon: "ph:linkedin-logo", value: contact.linkedin, href: (v) => v, external: true },
 ];
-const display = (v: string) => v.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+const display = (v: string) => decodeURI(v).replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 ---
 <section id="contact" class="contact glaze-invert" aria-labelledby="contact-title">
   <Frieze class="cfrieze" />
