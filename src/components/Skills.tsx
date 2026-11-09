@@ -6,9 +6,6 @@ import styles from "./Skills.module.css";
 
 export function Skills({ lang }: { lang: Lang }) {
   const t = useT(lang);
-  const anyLearning = skillGroups.some((group) =>
-    group.items.some((skill) => skill.level === "learning"),
-  );
   return (
     <section
       id="skills"
@@ -22,12 +19,10 @@ export function Skills({ lang }: { lang: Lang }) {
             {t("skills.title")}
           </h2>
           <p className="lede">{t("skills.intro")}</p>
-          {anyLearning && (
-            <p className={styles.legend}>
-              <span className="stamp stamp-ochre">{t("skills.learning")}</span>
-              <span>{t("skills.legend")}</span>
-            </p>
-          )}
+          <p className={styles.legend}>
+            <span className="stamp stamp-ochre">{t("skills.learning")}</span>
+            <span>{t("skills.legend")}</span>
+          </p>
         </div>
         <div className={styles.groups}>
           {skillGroups.map((group, index) => (
@@ -61,11 +56,6 @@ export function Skills({ lang }: { lang: Lang }) {
                     >
                       {pick(skill.name, lang)}
                     </span>
-                    {skill.level === "learning" && (
-                      <span className="stamp stamp-ochre">
-                        {t("skills.learning")}
-                      </span>
-                    )}
                   </li>
                 ))}
               </ul>

@@ -117,14 +117,13 @@ export const about: {
 
 /* ------------------------------------------------------------------ */
 /* Skills                                                              */
-/* Mirrors the technical skills on the CV. "learning" adds a stamp.     */
+/* Mirrors the technical skills on the CV.                              */
 /* ------------------------------------------------------------------ */
 
-export type SkillLevel = "hands-on" | "learning";
 export type SkillGroup = {
   icon: string;
   name: L;
-  items: { name: L | string; level: SkillLevel }[];
+  items: { name: L | string }[];
 };
 
 export const skillGroups: SkillGroup[] = [
@@ -132,51 +131,46 @@ export const skillGroups: SkillGroup[] = [
     icon: "ph:hard-drives",
     name: { en: "Systems", pt: "Sistemas" },
     items: [
-      { name: "Windows Server", level: "hands-on" },
-      { name: "Active Directory", level: "hands-on" },
-      { name: "Windows 11", level: "hands-on" },
-      { name: "Linux", level: "hands-on" },
-      { name: "Ubuntu Server", level: "hands-on" },
-      { name: "Fedora", level: "hands-on" },
+      { name: "Windows Server" },
+      { name: "Active Directory" },
+      { name: "Windows 11" },
+      { name: "Linux" },
+      { name: "Ubuntu Server" },
+      { name: "Fedora" },
     ],
   },
   {
     icon: "ph:stack",
     name: { en: "Virtualization & cloud", pt: "Virtualização e cloud" },
     items: [
-      { name: "KVM / virt-manager", level: "hands-on" },
-      { name: "VirtualBox", level: "hands-on" },
-      { name: "Proxmox VE", level: "hands-on" },
-      { name: "Microsoft Azure", level: "learning" },
+      { name: "KVM / virt-manager" },
+      { name: "Proxmox VE" },
+      { name: "Amazon Web Services (AWS)" },
     ],
   },
   {
     icon: "ph:network",
     name: { en: "Networking", pt: "Redes" },
     items: [
-      { name: "TCP/IP", level: "hands-on" },
-      {
-        name: { en: "IP addressing", pt: "Endereçamento IP" },
-        level: "hands-on",
-      },
-      { name: "PowerShell", level: "hands-on" },
-      { name: "WinRM", level: "hands-on" },
-      { name: "Troubleshooting", level: "hands-on" },
+      { name: "TCP/IP" },
+      { name: { en: "IP addressing", pt: "Endereçamento IP" } },
+      { name: "PowerShell" },
+      { name: "WinRM" },
+      { name: "Troubleshooting" },
     ],
   },
   {
     icon: "ph:code",
     name: { en: "Development", pt: "Desenvolvimento" },
     items: [
-      { name: "HTML / CSS", level: "hands-on" },
-      { name: "JavaScript", level: "hands-on" },
-      { name: "TypeScript", level: "hands-on" },
-      { name: "Node.js / Express", level: "hands-on" },
-      { name: "React", level: "hands-on" },
-      { name: "SQL", level: "hands-on" },
-      { name: "PostgreSQL", level: "hands-on" },
-      { name: "MySQL", level: "hands-on" },
-      { name: "Git / GitHub", level: "hands-on" },
+      { name: "HTML / CSS" },
+      { name: "JavaScript" },
+      { name: "TypeScript" },
+      { name: "Node.js / Express" },
+      { name: "React" },
+      { name: "SQL" },
+      { name: "MySQL" },
+      { name: "Git / GitHub" },
     ],
   },
 ];
@@ -206,43 +200,6 @@ const pending = () => todo("Coming soon", "Em breve");
 
 export const projects: Project[] = [
   {
-    id: "homelab",
-    icon: "ph:hard-drives",
-    title: {
-      en: "Systems Administration Homelab",
-      pt: "Homelab de Administração de Sistemas",
-    },
-    status: "in-progress",
-    summary: {
-      en: "A practical infrastructure environment built with virtual machines to develop skills in Windows Server, Linux, networking, Active Directory, DNS, DHCP and system administration.",
-      pt: "Um ambiente de infraestrutura prático, construído com máquinas virtuais, para desenvolver competências em Windows Server, Linux, redes, Active Directory, DNS, DHCP e administração de sistemas.",
-    },
-    topics: [
-      "Windows Server",
-      "Linux",
-      "Active Directory",
-      "DNS",
-      "DHCP",
-      { en: "Virtualization", pt: "Virtualização" },
-    ],
-    assets: [
-      { kind: "repo", href: pending() },
-      { kind: "docs", href: pending() },
-      {
-        kind: "diagram",
-        href: "/projects/sysadmin-architecture.drawio",
-      },
-      { kind: "screenshots", href: pending() },
-    ],
-    image: {
-      src: "/projects/sysadmin-architecture.png",
-      alt: {
-        en: "Hybrid systems administration infrastructure architecture diagram",
-        pt: "Diagrama da arquitetura da infraestrutura híbrida de administração de sistemas",
-      },
-    },
-  },
-  {
     id: "limatech",
     icon: "ph:cloud",
     title: {
@@ -258,9 +215,18 @@ export const projects: Project[] = [
     assets: [
       { kind: "repo", href: pending() },
       { kind: "docs", href: pending() },
-      { kind: "diagram", href: pending() },
+      {
+        kind: "diagram",
+        href: "/projects/limatech-architecture.drawio",
+      },
     ],
-    image: null,
+    image: {
+      src: "/projects/limatech-architecture.png",
+      alt: {
+        en: "LimaTech hybrid Linux and cloud infrastructure architecture diagram",
+        pt: "Diagrama da arquitetura da infraestrutura híbrida Linux e cloud da LimaTech",
+      },
+    },
   },
   {
     id: "iefp-plus",
@@ -326,6 +292,13 @@ export type EducationItem = {
 
 export const education: EducationItem[] = [
   {
+    kind: { en: "Bachelor’s degree", pt: "Licenciatura" },
+    title: { en: "Computer Engineering", pt: "Engenharia Informática" },
+    institution: "Instituto Politécnico de Viana do Castelo (IPVC)",
+    status: "studying",
+    period: { en: "1st year, 2026/27", pt: "1.º ano, 2026/27" },
+  },
+  {
     kind: { en: "CET, Level 5", pt: "CET, nível 5" },
     title: {
       en: "Computer Networks and Systems Technician",
@@ -338,13 +311,6 @@ export const education: EducationItem[] = [
       en: "Includes an internship from January 2027.",
       pt: "Inclui estágio a partir de janeiro de 2027.",
     },
-  },
-  {
-    kind: { en: "Bachelor’s degree", pt: "Licenciatura" },
-    title: { en: "Computer Engineering", pt: "Engenharia Informática" },
-    institution: "Instituto Politécnico de Viana do Castelo (IPVC)",
-    status: "studying",
-    period: { en: "1st year, 2026/27", pt: "1.º ano, 2026/27" },
   },
   {
     kind: { en: "Professional certificate", pt: "Certificado profissional" },

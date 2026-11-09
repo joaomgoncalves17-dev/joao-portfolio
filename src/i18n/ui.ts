@@ -34,7 +34,7 @@ export const ui = {
     "skills.intro":
       "Technologies and tools across systems, virtualization and cloud, networking and development.",
     "skills.learning": "Learning",
-    "skills.legend": "marks what I’m currently learning.",
+    "skills.legend": "Some of these topics are still being learned.",
     "projects.title": "Featured projects",
     "projects.intro":
       "Infrastructure and software projects, documented as they grow.",
@@ -98,7 +98,7 @@ export const ui = {
     "skills.intro":
       "Tecnologias e ferramentas de sistemas, virtualização e cloud, redes e desenvolvimento.",
     "skills.learning": "A aprender",
-    "skills.legend": "indica o que estou a aprender neste momento.",
+    "skills.legend": "Alguns destes tópicos ainda estão em aprendizagem.",
     "projects.title": "Projetos em destaque",
     "projects.intro":
       "Projetos de infraestrutura e de software, documentados à medida que crescem.",
