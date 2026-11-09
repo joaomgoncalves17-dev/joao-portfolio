@@ -73,7 +73,7 @@ export const ui = {
   pt: {
     "meta.title": "João Gonçalves | Sistemas, redes e software",
     "meta.description":
-      "Portfólio de João Gonçalves, estudante de Engenharia Informática em Portugal focado em administração de sistemas, redes, cloud e desenvolvimento de software.",
+      "Portefólio de João Gonçalves, estudante de Engenharia Informática em Portugal, com foco em administração de sistemas, redes, cloud e desenvolvimento de software.",
     "nav.label": "Principal",
     "nav.home": "Início",
     "nav.about": "Sobre",
@@ -88,10 +88,10 @@ export const ui = {
     "nav.switchLabel": "Read in English",
     "nav.skip": "Saltar para o conteúdo",
     "hero.line1": "Construir sistemas fiáveis.",
-    "hero.line2": "Explorar melhor tecnologia.",
+    "hero.line2": "Explorar novas tecnologias.",
     "hero.sub":
-      "Estudante de Engenharia Informática em Portugal, entre administração de sistemas, redes, cloud e software.",
-    "hero.focus": "Áreas de foco",
+      "Estudante de Engenharia Informática, a desenvolver competências em administração de sistemas, redes, cloud e software.",
+    "hero.focus": "Áreas de interesse",
     "cta.projects": "Ver projetos",
     "cta.contact": "Falar comigo",
     "about.title": "Sobre mim",
@@ -99,10 +99,10 @@ export const ui = {
     "skills.intro":
       "Tecnologias e ferramentas de sistemas, virtualização e cloud, redes e desenvolvimento.",
     "skills.learning": "A aprender",
-    "skills.legend": "Alguns destes tópicos ainda estão em aprendizagem.",
+    "skills.legend": "Continuo a aprofundar alguns destes tópicos.",
     "projects.title": "Projetos em destaque",
     "projects.intro":
-      "Projetos de infraestrutura e de software, documentados à medida que crescem.",
+      "Projetos de infraestrutura e software, com documentação atualizada à medida que evoluem.",
     "projects.status.in-progress": "Em curso",
     "projects.status.under-construction": "Em construção",
     "projects.status.completed": "Concluído",
@@ -114,10 +114,10 @@ export const ui = {
     "projects.asset.diagram": "Diagrama de arquitetura",
     "projects.asset.screenshots": "Capturas de ecrã",
     "projects.asset.demo": "Ver demonstração",
-    "projects.pending": "A adicionar à medida que o projeto avança:",
+    "projects.pending": "Conteúdos a adicionar à medida que o projeto evolui:",
     "exp.title": "Experiência",
     "exp.intro":
-      "Trabalho fora da informática que me ensinou a lidar com pessoas e problemas.",
+      "Experiência profissional fora da área tecnológica, onde desenvolvi competências de comunicação e resolução de problemas.",
     "edu.title": "Formação e certificações",
     "edu.status.studying": "A frequentar",
     "edu.status.in-progress": "Em curso",
@@ -126,7 +126,7 @@ export const ui = {
     "edu.credential": "Ver certificado",
     "contact.title": "Vamos falar",
     "contact.sub":
-      "Recrutadores, colaboradores e profissionais de tecnologia: terei todo o gosto em ouvir-vos.",
+      "Estou disponível para falar com recrutadores, colaboradores e profissionais da área tecnológica.",
     "contact.email": "Email",
     "contact.github": "GitHub",
     "contact.linkedin": "LinkedIn",

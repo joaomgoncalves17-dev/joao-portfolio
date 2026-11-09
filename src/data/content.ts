@@ -67,7 +67,7 @@ export const about: {
 } = {
   lead: {
     en: "I’m João, a Computer Engineering student in Portugal looking for an internship or first role in systems or software.",
-    pt: "Sou o João, estudante de Engenharia Informática em Portugal, à procura de estágio ou primeira posição em sistemas ou software.",
+    pt: "Sou o João, estudante de Engenharia Informática em Portugal, à procura de um estágio ou da primeira oportunidade profissional em sistemas ou software.",
   },
   body: [
     {
@@ -76,7 +76,7 @@ export const about: {
     },
     {
       en: "I also bring more than two years of customer-facing work. It taught me to solve problems calmly and to explain technical solutions in plain terms.",
-      pt: "Trago também mais de dois anos de experiência em atendimento ao cliente. Habituei-me a resolver problemas com calma e a explicar soluções técnicas de forma simples.",
+      pt: "Tenho também mais de dois anos de experiência em atendimento ao cliente, que me ensinaram a resolver problemas com calma e a explicar soluções técnicas de forma simples.",
     },
   ],
   facts: [
@@ -156,7 +156,12 @@ export const skillGroups: SkillGroup[] = [
       { name: { en: "IP addressing", pt: "Endereçamento IP" } },
       { name: "PowerShell" },
       { name: "WinRM" },
-      { name: "Troubleshooting" },
+      {
+        name: {
+          en: "Troubleshooting",
+          pt: "Diagnóstico e resolução de problemas",
+        },
+      },
     ],
   },
   {
@@ -209,7 +214,7 @@ export const projects: Project[] = [
     status: "in-progress",
     summary: {
       en: "IT infrastructure for a simulated company, built for the IEFP Networks and Systems course: Linux servers connected to the cloud, with routine tasks automated in Python.",
-      pt: "Infraestrutura de TI para uma empresa simulada, desenvolvida no curso de Redes e Sistemas do IEFP: servidores Linux ligados à cloud e automação de tarefas em Python.",
+      pt: "Infraestrutura de TI para uma empresa simulada, desenvolvida no curso de Redes e Sistemas do IEFP: servidores Linux integrados com serviços cloud e automação de tarefas em Python.",
     },
     topics: ["Linux", "Cloud", "Python", { en: "Automation", pt: "Automação" }],
     assets: [
@@ -238,7 +243,7 @@ export const projects: Project[] = [
     status: "in-progress",
     summary: {
       en: "A team project of four: class timetables, lunch options and a noticeboard where trainees from different courses can post practical-work requests.",
-      pt: "Projeto de equipa de quatro pessoas: horários das turmas, opções de almoço e um quadro de anúncios para trabalhos práticos entre cursos.",
+      pt: "Projeto desenvolvido por uma equipa de quatro pessoas: horários das turmas, opções de almoço e um quadro onde formandos de diferentes cursos podem publicar pedidos de colaboração para trabalhos práticos.",
     },
     topics: [
       { en: "Web development", pt: "Desenvolvimento web" },
@@ -260,11 +265,11 @@ export const projects: Project[] = [
   {
     id: "portfolio",
     icon: "ph:browser",
-    title: { en: "Personal portfolio", pt: "Site pessoal / portefólio" },
+    title: { en: "Personal portfolio", pt: "Portefólio pessoal" },
     status: "live",
     summary: {
       en: "This site: a bilingual static portfolio, hosted on Vercel and deployed on every push.",
-      pt: "Este site: um portefólio estático bilingue, alojado na Vercel e publicado a cada push.",
+      pt: "Este site é um portefólio estático bilingue, alojado na Vercel e atualizado automaticamente a cada push.",
     },
     topics: ["React", "TypeScript", "Vite", "CSS", "Vercel"],
     assets: [
@@ -376,23 +381,23 @@ export const experience: Job[] = [
     },
     summary: {
       en: "Advised customers on electronics and computer equipment, and gave informal IT help beyond the role.",
-      pt: "Aconselhamento de clientes em equipamentos de eletrónica e informática, e apoio informático informal para além das funções.",
+      pt: "Aconselhei clientes sobre equipamentos de eletrónica e informática e prestei apoio informático informal para além das minhas funções.",
     },
   },
   {
     role: {
       en: "Customer Service Assistant",
-      pt: "Customer Service Assistant",
+      pt: "Assistente de atendimento ao cliente",
     },
     company: "McDonald’s",
     period: { en: "Mar 2025 – Jul 2026", pt: "mar 2025 – jul 2026" },
     place: {
       en: "Viana do Castelo · part-time",
-      pt: "Viana do Castelo · part-time",
+      pt: "Viana do Castelo · tempo parcial",
     },
     summary: {
       en: "Front-line service in a high-pressure environment: teamwork and handling complaints.",
-      pt: "Atendimento ao público em ambiente de alta pressão, trabalho em equipa e resolução de reclamações.",
+      pt: "Atendi clientes num ambiente exigente, trabalhando em equipa e ajudando a resolver reclamações.",
     },
   },
   {
@@ -401,7 +406,7 @@ export const experience: Job[] = [
     period: { en: "Apr 2022 – Sep 2024", pt: "abr 2022 – set 2024" },
     summary: {
       en: "Looked after and supervised children during school activities.",
-      pt: "Acompanhamento e supervisão de crianças em atividades escolares.",
+      pt: "Acompanhei e supervisionei crianças durante atividades escolares.",
     },
   },
 ];
