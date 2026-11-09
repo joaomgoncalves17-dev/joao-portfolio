@@ -9,6 +9,7 @@ const assetIcon: Record<AssetKind, string> = {
   docs: "ph:file-text",
   diagram: "ph:tree-structure",
   screenshots: "ph:image",
+  demo: "ph:play-circle",
 };
 const statusClass = {
   "in-progress": "stamp-ochre",

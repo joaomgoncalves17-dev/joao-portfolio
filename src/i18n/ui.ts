@@ -48,6 +48,7 @@ export const ui = {
     "projects.asset.docs": "Technical documentation",
     "projects.asset.diagram": "Architecture diagram",
     "projects.asset.screenshots": "Screenshots",
+    "projects.asset.demo": "Watch demo",
     "projects.pending": "Coming as the project develops:",
     "exp.title": "Experience",
     "exp.intro":
@@ -112,6 +113,7 @@ export const ui = {
     "projects.asset.docs": "Documentação técnica",
     "projects.asset.diagram": "Diagrama de arquitetura",
     "projects.asset.screenshots": "Capturas de ecrã",
+    "projects.asset.demo": "Ver demonstração",
     "projects.pending": "A adicionar à medida que o projeto avança:",
     "exp.title": "Experiência",
     "exp.intro":

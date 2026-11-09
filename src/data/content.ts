@@ -181,7 +181,7 @@ export const skillGroups: SkillGroup[] = [
 
 export type ProjectStatus =
   "in-progress" | "under-construction" | "completed" | "live";
-export type AssetKind = "repo" | "docs" | "diagram" | "screenshots";
+export type AssetKind = "repo" | "docs" | "diagram" | "screenshots" | "demo";
 
 export type Project = {
   id: string;
@@ -245,10 +245,17 @@ export const projects: Project[] = [
       { en: "Team of 4", pt: "Equipa de 4" },
     ],
     assets: [
+      { kind: "demo", href: "/projects/iefp-plus-demo.mp4" },
       { kind: "repo", href: pending() },
       { kind: "screenshots", href: pending() },
     ],
-    image: null,
+    image: {
+      src: "/projects/iefp-plus-poster.webp",
+      alt: {
+        en: "IEFP+ event creation screen for a training course",
+        pt: "Ecrã de criação de eventos do IEFP+ para um curso de formação",
+      },
+    },
   },
   {
     id: "portfolio",
