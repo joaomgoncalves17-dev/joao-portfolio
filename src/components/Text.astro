@@ -1,9 +1,0 @@
----
-/** Renders a content value; todo() values show as a visible placeholder. */
-import { isTodo, type Val } from "../data/content";
-import { pick, type Lang } from "../i18n/ui";
-
-interface Props { value: Val; lang: Lang }
-const { value, lang } = Astro.props;
----
-{isTodo(value) ? <span class="ph">{pick(value.todo, lang)}</span> : pick(value, lang)}

@@ -1,0 +1,120 @@
+/* The close is drenched: the page turns over to a cobalt-ground panel painted white. */
+.contact {
+  --grout: color-mix(in srgb, #000 22%, var(--cobalt-strong));
+  background: var(--cobalt-strong);
+  color: var(--on-cobalt);
+}
+.contact ::selection {
+  background: var(--on-cobalt);
+  color: var(--cobalt-strong);
+}
+.contact :focus-visible {
+  outline-color: var(--on-cobalt);
+}
+.contact :global(.cfrieze) {
+  opacity: 0.9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 3rem;
+  align-items: start;
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+.head {
+  grid-column: 1 / span 6;
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+}
+.title {
+  font-size: clamp(2.8rem, 7.4vw, 6.25rem);
+  font-weight: 830;
+  font-stretch: 118%;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.sub {
+  font-size: clamp(1.1rem, 1.5vw, 1.28rem);
+  line-height: 1.5;
+  max-width: 32rem;
+  color: color-mix(in srgb, var(--on-cobalt) 88%, var(--cobalt-strong));
+}
+.contact :global(.btn-glaze) {
+  margin-top: 0.5rem;
+  background: var(--on-cobalt);
+  color: #0e1a44;
+}
+.contact :global(a.btn-glaze:hover) {
+  background: #dfe6fa;
+}
+.contact :global(.cv[aria-disabled="true"]) {
+  background: transparent;
+  color: var(--on-cobalt);
+  border: 1.5px dashed rgb(255 255 255 / 0.75);
+}
+.note {
+  font-size: 0.92rem;
+  font-style: italic;
+  margin-top: -0.75rem;
+}
+
+.rows {
+  grid-column: 8 / -1;
+  border-top: 1px solid rgb(255 255 255 / 0.4);
+}
+.rows li {
+  border-bottom: 1px solid rgb(255 255 255 / 0.4);
+}
+.rows :global(.row) {
+  display: grid;
+  grid-template-columns: auto 6rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.25rem;
+  padding-block: 0.75rem;
+  text-decoration: none;
+}
+.rows :global(.r-icon),
+.rows :global(.r-go) {
+  transition: transform 260ms var(--ease);
+}
+.rows :global(a.row:hover .r-icon) {
+  transform: translateX(4px);
+}
+.rows :global(a.row:hover .r-go) {
+  transform: translate(3px, -3px);
+}
+.rows :global(a.row:hover .r-value) {
+  text-decoration: underline;
+}
+.r-label {
+  font-weight: 750;
+  font-stretch: 110%;
+  font-size: 1.1rem;
+}
+.r-value {
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+.rows :global(span.row .r-value) {
+  font-style: italic;
+}
+
+@media (max-width: 63.99rem) {
+  .head,
+  .rows {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 39.99rem) {
+  .rows :global(.row) {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 0.15rem;
+  }
+  .r-value {
+    grid-column: 2;
+  }
+}

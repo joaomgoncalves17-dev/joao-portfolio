@@ -8,18 +8,18 @@
 :root {
   color-scheme: light dark;
 
-  --ground: #f3f5fb;        /* page glaze */
-  --surface: #fbfcff;       /* plaques and raised panels */
-  --ink: #0e1a44;           /* navy ink, 15.6:1 on ground */
-  --slate: #46527a;         /* secondary text, 7.0:1 on ground */
-  --cobalt: #1f3fae;        /* the one voice, 8.1:1 on ground */
+  --ground: #f3f5fb; /* page glaze */
+  --surface: #fbfcff; /* plaques and raised panels */
+  --ink: #0e1a44; /* navy ink, 15.6:1 on ground */
+  --slate: #46527a; /* secondary text, 7.0:1 on ground */
+  --cobalt: #1f3fae; /* the one voice, 8.1:1 on ground */
   --cobalt-strong: #1f3fae; /* solid fills (buttons, close) */
-  --cobalt-deep: #142c86;   /* hover on solid fills */
+  --cobalt-deep: #142c86; /* hover on solid fills */
   --on-cobalt: #ffffff;
-  --wash: #dfe6fa;          /* pale cobalt wash */
-  --rule: #d5dcef;          /* hairlines, also the tile grout */
+  --wash: #dfe6fa; /* pale cobalt wash */
+  --rule: #d5dcef; /* hairlines, also the tile grout */
   --rule-strong: #aab6db;
-  --ochre: #e2a33a;         /* status stamp fill only, always under navy */
+  --ochre: #e2a33a; /* status stamp fill only, always under navy */
   --on-ochre: #0e1a44;
 
   --tile-bg: #f8faff;
@@ -78,25 +78,53 @@
     scroll-padding-top: calc(var(--nav-h) + 1rem);
     scrollbar-color: var(--rule-strong) var(--ground);
     caret-color: var(--cobalt);
-    -webkit-tap-highlight-color: color-mix(in srgb, var(--cobalt) 18%, transparent);
+    -webkit-tap-highlight-color: color-mix(
+      in srgb,
+      var(--cobalt) 18%,
+      transparent
+    );
     touch-action: manipulation;
   }
-  body { background: var(--ground); overflow-x: clip; }
-  ::selection { background: var(--cobalt-strong); color: var(--on-cobalt); }
-  h1, h2, h3 { text-wrap: balance; }
-  p, li, dd { text-wrap: pretty; }
-  a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+  body {
+    background: var(--ground);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--cobalt-strong);
+    color: var(--on-cobalt);
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
   :focus-visible {
     outline: 2px solid var(--cobalt);
     outline-offset: 3px;
     border-radius: 3px;
   }
-  .tabular { font-variant-numeric: tabular-nums; }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -108,9 +136,15 @@
     width: 100%;
     max-width: 82rem;
     margin-inline: auto;
-    padding-inline: max(clamp(1rem, 4vw, 3rem), env(safe-area-inset-left), env(safe-area-inset-right));
+    padding-inline: max(
+      clamp(1rem, 4vw, 3rem),
+      env(safe-area-inset-left),
+      env(safe-area-inset-right)
+    );
   }
-  .section { padding-block: clamp(5rem, 10vw, 8.5rem); }
+  .section {
+    padding-block: clamp(5rem, 10vw, 8.5rem);
+  }
 
   /* Section headings: wide, heavy, standing alone. */
   .h2 {
@@ -160,22 +194,41 @@
       box-shadow 220ms var(--ease),
       transform 160ms var(--ease);
   }
-  .btn:active { transform: translateY(2px) scale(0.985); }
-  .btn .arrow { transition: transform 260ms var(--ease); }
-  .btn:hover .arrow { transform: translateX(3px); }
+  .btn:active {
+    transform: translateY(2px) scale(0.985);
+  }
+  .btn .arrow {
+    transition: transform 260ms var(--ease);
+  }
+  .btn:hover .arrow {
+    transform: translateX(3px);
+  }
   .btn-primary {
     background: var(--cobalt-strong);
     color: var(--on-cobalt);
-    box-shadow: 0 10px 22px -14px color-mix(in srgb, var(--cobalt-strong) 75%, transparent);
+    box-shadow: 0 10px 22px -14px
+      color-mix(in srgb, var(--cobalt-strong) 75%, transparent);
   }
-  .btn-primary:hover { background: var(--cobalt-deep); }
-  .btn-primary:active { box-shadow: 0 4px 10px -8px color-mix(in srgb, var(--cobalt-strong) 75%, transparent); }
+  .btn-primary:hover {
+    background: var(--cobalt-deep);
+  }
+  .btn-primary:active {
+    box-shadow: 0 4px 10px -8px
+      color-mix(in srgb, var(--cobalt-strong) 75%, transparent);
+  }
   .btn-frame {
     color: var(--ink);
-    box-shadow: inset 0 0 0 1.5px var(--cobalt), inset 0 0 0 4px var(--surface), inset 0 0 0 5px color-mix(in srgb, var(--cobalt) 45%, transparent);
+    box-shadow:
+      inset 0 0 0 1.5px var(--cobalt),
+      inset 0 0 0 4px var(--surface),
+      inset 0 0 0 5px color-mix(in srgb, var(--cobalt) 45%, transparent);
   }
-  .btn-frame:hover { background: var(--wash); }
-  .btn[aria-disabled="true"] { cursor: not-allowed; }
+  .btn-frame:hover {
+    background: var(--wash);
+  }
+  .btn[aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 
   /* Status stamp: a small seal pressed onto the record. */
   .stamp {
@@ -191,10 +244,24 @@
     line-height: 1.4;
     white-space: nowrap;
   }
-  .stamp-ochre { background: var(--ochre); color: var(--on-ochre); }
-  .stamp-cobalt { background: var(--wash); color: var(--cobalt); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cobalt) 35%, transparent); }
-  .stamp-solid { background: var(--cobalt-strong); color: var(--on-cobalt); }
-  .stamp-quiet { color: var(--slate); box-shadow: inset 0 0 0 1px var(--rule-strong); }
+  .stamp-ochre {
+    background: var(--ochre);
+    color: var(--on-ochre);
+  }
+  .stamp-cobalt {
+    background: var(--wash);
+    color: var(--cobalt);
+    box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--cobalt) 35%, transparent);
+  }
+  .stamp-solid {
+    background: var(--cobalt-strong);
+    color: var(--on-cobalt);
+  }
+  .stamp-quiet {
+    color: var(--slate);
+    box-shadow: inset 0 0 0 1px var(--rule-strong);
+  }
 
   /* Network tile. The wrapper holds the quarter-turn; the svg is free for entrances. */
   .t {
@@ -203,7 +270,11 @@
     transform: rotate(calc(var(--r, 0) * 90deg));
     transition: transform 700ms var(--ease);
   }
-  .t svg { display: block; width: 100%; height: 100%; }
+  .t svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 
   /* Inverted glaze: cobalt ground painted white (contact close, brand mark). */
   .glaze-invert {
@@ -221,7 +292,10 @@
         animation-range: entry 0% entry 40%;
       }
       @keyframes reveal {
-        from { opacity: 0; transform: translateY(24px); }
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
       }
     }
   }

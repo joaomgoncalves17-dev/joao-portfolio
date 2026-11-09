@@ -1,0 +1,42 @@
+.skip {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 50;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--ground);
+  font-weight: 650;
+  text-decoration: none;
+  transition: top 160ms var(--ease);
+}
+
+.skip:focus {
+  top: 0.75rem;
+}
+
+.nf {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 1.25rem;
+  min-height: 100svh;
+  padding-block: 4rem;
+}
+
+.code {
+  font-size: clamp(5rem, 16vw, 10rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  font-stretch: 125%;
+  color: var(--cobalt);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}

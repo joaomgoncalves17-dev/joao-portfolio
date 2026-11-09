@@ -34,10 +34,26 @@ export const contact: {
 /* ------------------------------------------------------------------ */
 
 export const focusAreas: { icon: string; name: L; short: L }[] = [
-  { icon: "ph:hard-drives", name: { en: "Systems Administration", pt: "Administração de Sistemas" }, short: { en: "Systems", pt: "Sistemas" } },
-  { icon: "ph:network", name: { en: "Networking", pt: "Redes" }, short: { en: "Networks", pt: "Redes" } },
-  { icon: "ph:cloud", name: { en: "Cloud Infrastructure", pt: "Infraestrutura Cloud" }, short: { en: "Cloud", pt: "Cloud" } },
-  { icon: "ph:code", name: { en: "Software Development", pt: "Desenvolvimento de Software" }, short: { en: "Software", pt: "Software" } },
+  {
+    icon: "ph:hard-drives",
+    name: { en: "Systems Administration", pt: "Administração de Sistemas" },
+    short: { en: "Systems", pt: "Sistemas" },
+  },
+  {
+    icon: "ph:network",
+    name: { en: "Networking", pt: "Redes" },
+    short: { en: "Networks", pt: "Redes" },
+  },
+  {
+    icon: "ph:cloud",
+    name: { en: "Cloud Infrastructure", pt: "Infraestrutura Cloud" },
+    short: { en: "Cloud", pt: "Cloud" },
+  },
+  {
+    icon: "ph:code",
+    name: { en: "Software Development", pt: "Desenvolvimento de Software" },
+    short: { en: "Software", pt: "Software" },
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -64,17 +80,38 @@ export const about: {
     },
   ],
   facts: [
-    { label: { en: "Based in", pt: "Localização" }, value: { en: "Viana do Castelo, Portugal", pt: "Viana do Castelo, Portugal" } },
-    { label: { en: "Studying", pt: "Licenciatura" }, value: { en: "Computer Engineering, IPVC", pt: "Engenharia Informática, IPVC" } },
+    {
+      label: { en: "Based in", pt: "Localização" },
+      value: {
+        en: "Viana do Castelo, Portugal",
+        pt: "Viana do Castelo, Portugal",
+      },
+    },
+    {
+      label: { en: "Studying", pt: "Licenciatura" },
+      value: {
+        en: "Computer Engineering, IPVC",
+        pt: "Engenharia Informática, IPVC",
+      },
+    },
     {
       label: { en: "Training", pt: "Formação" },
-      value: { en: "Networks and Systems Technician, IEFP", pt: "Técnico de Redes e Sistemas, IEFP" },
+      value: {
+        en: "Networks and Systems Technician, IEFP",
+        pt: "Técnico de Redes e Sistemas, IEFP",
+      },
     },
     {
       label: { en: "Languages", pt: "Línguas" },
-      value: { en: "Portuguese, English (C1–C2), Spanish (A2)", pt: "Português, Inglês (C1–C2), Espanhol (A2)" },
+      value: {
+        en: "Portuguese, English (C1–C2), Spanish (A2)",
+        pt: "Português, Inglês (C1–C2), Espanhol (A2)",
+      },
     },
-    { label: { en: "Driving licence", pt: "Carta de condução" }, value: { en: "Category B, own car", pt: "Categoria B, viatura própria" } },
+    {
+      label: { en: "Driving licence", pt: "Carta de condução" },
+      value: { en: "Category B, own car", pt: "Categoria B, viatura própria" },
+    },
   ],
 };
 
@@ -84,7 +121,11 @@ export const about: {
 /* ------------------------------------------------------------------ */
 
 export type SkillLevel = "hands-on" | "learning";
-export type SkillGroup = { icon: string; name: L; items: { name: L | string; level: SkillLevel }[] };
+export type SkillGroup = {
+  icon: string;
+  name: L;
+  items: { name: L | string; level: SkillLevel }[];
+};
 
 export const skillGroups: SkillGroup[] = [
   {
@@ -114,7 +155,10 @@ export const skillGroups: SkillGroup[] = [
     name: { en: "Networking", pt: "Redes" },
     items: [
       { name: "TCP/IP", level: "hands-on" },
-      { name: { en: "IP addressing", pt: "Endereçamento IP" }, level: "hands-on" },
+      {
+        name: { en: "IP addressing", pt: "Endereçamento IP" },
+        level: "hands-on",
+      },
       { name: "PowerShell", level: "hands-on" },
       { name: "WinRM", level: "hands-on" },
       { name: "Troubleshooting", level: "hands-on" },
@@ -141,7 +185,8 @@ export const skillGroups: SkillGroup[] = [
 /* Projects                                                            */
 /* ------------------------------------------------------------------ */
 
-export type ProjectStatus = "in-progress" | "under-construction" | "completed" | "live";
+export type ProjectStatus =
+  "in-progress" | "under-construction" | "completed" | "live";
 export type AssetKind = "repo" | "docs" | "diagram" | "screenshots";
 
 export type Project = {
@@ -163,25 +208,47 @@ export const projects: Project[] = [
   {
     id: "homelab",
     icon: "ph:hard-drives",
-    title: { en: "Systems Administration Homelab", pt: "Homelab de Administração de Sistemas" },
+    title: {
+      en: "Systems Administration Homelab",
+      pt: "Homelab de Administração de Sistemas",
+    },
     status: "in-progress",
     summary: {
       en: "A practical infrastructure environment built with virtual machines to develop skills in Windows Server, Linux, networking, Active Directory, DNS, DHCP and system administration.",
       pt: "Um ambiente de infraestrutura prático, construído com máquinas virtuais, para desenvolver competências em Windows Server, Linux, redes, Active Directory, DNS, DHCP e administração de sistemas.",
     },
-    topics: ["Windows Server", "Linux", "Active Directory", "DNS", "DHCP", { en: "Virtualization", pt: "Virtualização" }],
+    topics: [
+      "Windows Server",
+      "Linux",
+      "Active Directory",
+      "DNS",
+      "DHCP",
+      { en: "Virtualization", pt: "Virtualização" },
+    ],
     assets: [
       { kind: "repo", href: pending() },
       { kind: "docs", href: pending() },
-      { kind: "diagram", href: pending() },
+      {
+        kind: "diagram",
+        href: "/projects/sysadmin-architecture.drawio",
+      },
       { kind: "screenshots", href: pending() },
     ],
-    image: null,
+    image: {
+      src: "/projects/sysadmin-architecture.png",
+      alt: {
+        en: "Hybrid systems administration infrastructure architecture diagram",
+        pt: "Diagrama da arquitetura da infraestrutura híbrida de administração de sistemas",
+      },
+    },
   },
   {
     id: "limatech",
     icon: "ph:cloud",
-    title: { en: "Hybrid Linux + cloud infrastructure: LimaTech", pt: "Infraestrutura híbrida Linux + cloud: LimaTech" },
+    title: {
+      en: "Hybrid Linux + cloud infrastructure: LimaTech",
+      pt: "Infraestrutura híbrida Linux + cloud: LimaTech",
+    },
     status: "in-progress",
     summary: {
       en: "IT infrastructure for a simulated company, built for the IEFP Networks and Systems course: Linux servers connected to the cloud, with routine tasks automated in Python.",
@@ -198,7 +265,10 @@ export const projects: Project[] = [
   {
     id: "iefp-plus",
     icon: "ph:calendar-dots",
-    title: { en: "IEFP+: web app for trainees", pt: "IEFP+: web app para formandos" },
+    title: {
+      en: "IEFP+: web app for trainees",
+      pt: "IEFP+: web app para formandos",
+    },
     status: "in-progress",
     summary: {
       en: "A team project of four: class timetables, lunch options and a noticeboard where trainees from different courses can post practical-work requests.",
@@ -223,8 +293,13 @@ export const projects: Project[] = [
       en: "This site: a bilingual static portfolio, hosted on Vercel and deployed on every push.",
       pt: "Este site: um portefólio estático bilingue, alojado na Vercel e publicado a cada push.",
     },
-    topics: ["Astro", "TypeScript", "CSS", "Vercel"],
-    assets: [{ kind: "repo", href: "https://github.com/joaomgoncalves17-dev/joao-portfolio" }],
+    topics: ["React", "TypeScript", "Vite", "CSS", "Vercel"],
+    assets: [
+      {
+        kind: "repo",
+        href: "https://github.com/joaomgoncalves17-dev/joao-portfolio",
+      },
+    ],
     image: null,
   },
 ];
@@ -252,11 +327,17 @@ export type EducationItem = {
 export const education: EducationItem[] = [
   {
     kind: { en: "CET, Level 5", pt: "CET, nível 5" },
-    title: { en: "Computer Networks and Systems Technician", pt: "Técnico de Redes e Sistemas Informáticos" },
+    title: {
+      en: "Computer Networks and Systems Technician",
+      pt: "Técnico de Redes e Sistemas Informáticos",
+    },
     institution: "IEFP",
     status: "studying",
     period: { en: "Sep 2026 – Sep 2027", pt: "set 2026 – set 2027" },
-    note: { en: "Includes an internship from January 2027.", pt: "Inclui estágio a partir de janeiro de 2027." },
+    note: {
+      en: "Includes an internship from January 2027.",
+      pt: "Inclui estágio a partir de janeiro de 2027.",
+    },
   },
   {
     kind: { en: "Bachelor’s degree", pt: "Licenciatura" },
@@ -272,10 +353,22 @@ export const education: EducationItem[] = [
     status: "completed",
     courses: [
       { name: "Technical Support Fundamentals", status: "completed" },
-      { name: "The Bits and Bytes of Computer Networking", status: "completed" },
-      { name: "Operating Systems and You: Becoming a Power User", status: "completed" },
-      { name: "System Administration and IT Infrastructure Services", status: "completed" },
-      { name: "IT Security: Defense against the digital dark arts", status: "completed" },
+      {
+        name: "The Bits and Bytes of Computer Networking",
+        status: "completed",
+      },
+      {
+        name: "Operating Systems and You: Becoming a Power User",
+        status: "completed",
+      },
+      {
+        name: "System Administration and IT Infrastructure Services",
+        status: "completed",
+      },
+      {
+        name: "IT Security: Defense against the digital dark arts",
+        status: "completed",
+      },
     ],
     credential: "https://coursera.org/share/517fa94d746518f4708e589c5a3eeab3",
   },
@@ -291,24 +384,39 @@ export const education: EducationItem[] = [
 /* Work experience, most recent first                                  */
 /* ------------------------------------------------------------------ */
 
-export type Job = { role: L; company: string; period: L; place?: L; summary: L };
+export type Job = {
+  role: L;
+  company: string;
+  period: L;
+  place?: L;
+  summary: L;
+};
 
 export const experience: Job[] = [
   {
     role: { en: "Sales Assistant", pt: "Assistente de Vendas" },
     company: "Rádio Popular",
     period: { en: "Jul 2026 – Sep 2026", pt: "jul 2026 – set 2026" },
-    place: { en: "Viana do Castelo · full-time", pt: "Viana do Castelo · tempo inteiro" },
+    place: {
+      en: "Viana do Castelo · full-time",
+      pt: "Viana do Castelo · tempo inteiro",
+    },
     summary: {
       en: "Advised customers on electronics and computer equipment, and gave informal IT help beyond the role.",
       pt: "Aconselhamento de clientes em equipamentos de eletrónica e informática, e apoio informático informal para além das funções.",
     },
   },
   {
-    role: { en: "Customer Service Assistant", pt: "Customer Service Assistant" },
+    role: {
+      en: "Customer Service Assistant",
+      pt: "Customer Service Assistant",
+    },
     company: "McDonald’s",
     period: { en: "Mar 2025 – Jul 2026", pt: "mar 2025 – jul 2026" },
-    place: { en: "Viana do Castelo · part-time", pt: "Viana do Castelo · part-time" },
+    place: {
+      en: "Viana do Castelo · part-time",
+      pt: "Viana do Castelo · part-time",
+    },
     summary: {
       en: "Front-line service in a high-pressure environment: teamwork and handling complaints.",
       pt: "Atendimento ao público em ambiente de alta pressão, trabalho em equipa e resolução de reclamações.",

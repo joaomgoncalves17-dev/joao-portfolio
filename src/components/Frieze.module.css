@@ -1,0 +1,11 @@
+.frieze {
+  display: flex;
+  gap: 2px;
+  padding-block: 2px;
+  overflow: hidden;
+  background: var(--grout);
+}
+.frieze :global(.t) {
+  flex: none;
+  width: clamp(1.9rem, 3vw, 2.6rem);
+}

@@ -31,11 +31,13 @@ export const ui = {
     "cta.contact": "Get in Touch",
     "about.title": "About",
     "skills.title": "Skills",
-    "skills.intro": "Technologies and tools across systems, virtualization and cloud, networking and development.",
+    "skills.intro":
+      "Technologies and tools across systems, virtualization and cloud, networking and development.",
     "skills.learning": "Learning",
     "skills.legend": "marks what I’m currently learning.",
     "projects.title": "Featured projects",
-    "projects.intro": "Infrastructure and software projects, documented as they grow.",
+    "projects.intro":
+      "Infrastructure and software projects, documented as they grow.",
     "projects.status.in-progress": "In progress",
     "projects.status.under-construction": "Under construction",
     "projects.status.completed": "Completed",
@@ -48,7 +50,8 @@ export const ui = {
     "projects.asset.screenshots": "Screenshots",
     "projects.pending": "Coming as the project develops:",
     "exp.title": "Experience",
-    "exp.intro": "Work outside IT that built how I deal with people and problems.",
+    "exp.intro":
+      "Work outside IT that built how I deal with people and problems.",
     "edu.title": "Education & certifications",
     "edu.status.studying": "Currently studying",
     "edu.status.in-progress": "In progress",
@@ -92,11 +95,13 @@ export const ui = {
     "cta.contact": "Falar comigo",
     "about.title": "Sobre mim",
     "skills.title": "Competências",
-    "skills.intro": "Tecnologias e ferramentas de sistemas, virtualização e cloud, redes e desenvolvimento.",
+    "skills.intro":
+      "Tecnologias e ferramentas de sistemas, virtualização e cloud, redes e desenvolvimento.",
     "skills.learning": "A aprender",
     "skills.legend": "indica o que estou a aprender neste momento.",
     "projects.title": "Projetos em destaque",
-    "projects.intro": "Projetos de infraestrutura e de software, documentados à medida que crescem.",
+    "projects.intro":
+      "Projetos de infraestrutura e de software, documentados à medida que crescem.",
     "projects.status.in-progress": "Em curso",
     "projects.status.under-construction": "Em construção",
     "projects.status.completed": "Concluído",
@@ -109,7 +114,8 @@ export const ui = {
     "projects.asset.screenshots": "Capturas de ecrã",
     "projects.pending": "A adicionar à medida que o projeto avança:",
     "exp.title": "Experiência",
-    "exp.intro": "Trabalho fora da informática que me ensinou a lidar com pessoas e problemas.",
+    "exp.intro":
+      "Trabalho fora da informática que me ensinou a lidar com pessoas e problemas.",
     "edu.title": "Formação e certificações",
     "edu.status.studying": "A frequentar",
     "edu.status.in-progress": "Em curso",
