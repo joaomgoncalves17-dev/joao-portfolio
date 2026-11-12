@@ -1,7 +1,7 @@
 /**
  * All site content lives here, in English and Portuguese.
- * Anything wrapped in todo() renders as a visibly marked placeholder; replace it
- * with the real value when you have it. Never replace a todo() with an invented fact.
+ * Anything wrapped in todo() renders as a visibly marked placeholder until the
+ * real value is added.
  */
 import type { L } from "../i18n/ui";
 
