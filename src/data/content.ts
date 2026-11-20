@@ -137,6 +137,12 @@ export const skillGroups: SkillGroup[] = [
       { name: "Linux" },
       { name: "Ubuntu Server" },
       { name: "Fedora" },
+      {
+        name: {
+          en: "Linux hardening (SSH, UFW, Fail2ban, Lynis)",
+          pt: "Hardening Linux (SSH, UFW, Fail2ban, Lynis)",
+        },
+      },
     ],
   },
   {
