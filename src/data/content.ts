@@ -205,6 +205,40 @@ const pending = () => todo("Coming soon", "Em breve");
 
 export const projects: Project[] = [
   {
+    id: "linux-hardening",
+    icon: "ph:shield-check",
+    title: {
+      en: "Linux server hardening",
+      pt: "Hardening de um servidor Linux",
+    },
+    status: "completed",
+    summary: {
+      en: "Took a fresh Ubuntu Server VM and locked it down: key-only SSH on a non-default port, a deny-by-default UFW firewall, Fail2ban, automatic security updates and audit tools. Measured with Lynis, the hardening index rose from 62 to 75.",
+      pt: "Peguei numa VM Ubuntu Server acabada de instalar e reforcei a sua segurança: SSH só com chave e numa porta não standard, firewall UFW a negar por omissão, Fail2ban, atualizações de segurança automáticas e ferramentas de auditoria. Medido com o Lynis, o hardening index subiu de 62 para 75.",
+    },
+    topics: [
+      "Ubuntu Server",
+      "SSH",
+      "UFW",
+      "Fail2ban",
+      "Lynis",
+      { en: "Security", pt: "Segurança" },
+    ],
+    assets: [
+      {
+        kind: "repo",
+        href: "https://github.com/joaomgoncalves17-dev/linux-server-hardening",
+      },
+    ],
+    image: {
+      src: "/projects/linux-hardening-lynis.webp",
+      alt: {
+        en: "Lynis audit result: hardening index 75 across 266 tests, with firewall, intrusion software and malware scanner all checked",
+        pt: "Resultado da auditoria Lynis: hardening index 75 em 266 testes, com firewall, software de deteção de intrusões e scanner de malware assinalados",
+      },
+    },
+  },
+  {
     id: "limatech",
     icon: "ph:cloud",
     title: {
